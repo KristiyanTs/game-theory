@@ -78,6 +78,12 @@ export class GameEngine {
         modelBScore: 0
       }
 
+      // Track consecutive failures for match abortion
+      let consecutiveFailures = 0
+      let consecutiveEmptyResponses = 0
+      const MAX_CONSECUTIVE_FAILURES = 3
+      const MAX_CONSECUTIVE_EMPTY_RESPONSES = 5
+
       // Play all rounds
       for (let round = 1; round <= this.TOTAL_ROUNDS; round++) {
         gameState.round = round
@@ -89,6 +95,36 @@ export class GameEngine {
             modelBName,
             gameState
           )
+
+          // Reset failure counters on successful round
+          consecutiveFailures = 0
+          
+          // Handle empty response tracking
+          if (roundResult.hasEmptyResponse) {
+            consecutiveEmptyResponses++
+            console.log(`⚠️ Empty response tracking: ${consecutiveEmptyResponses} consecutive`)
+            
+            // If we're seeing too many empty responses, add exponential delays
+            if (consecutiveEmptyResponses >= 3) {
+              const delay = Math.min(consecutiveEmptyResponses * 15000, 60000) // 15s, 30s, 45s, max 60s
+              console.log(`🚦 API overload detected, implementing ${delay/1000}s delay...`)
+              await new Promise(resolve => setTimeout(resolve, delay))
+            }
+            
+            // Abort if too many empty responses
+            if (consecutiveEmptyResponses >= MAX_CONSECUTIVE_EMPTY_RESPONSES) {
+              console.error(`🚫 Aborting match after ${consecutiveEmptyResponses} consecutive empty responses`)
+              
+              await supabaseAdmin
+                .from('matches')
+                .update({ status: 'aborted' })
+                .eq('id', match.id)
+                
+              throw new Error(`Match aborted: API consistently returning empty responses. Service may be overloaded.`)
+            }
+          } else {
+            consecutiveEmptyResponses = 0 // Reset if we got valid responses
+          }
 
           // Update game state with round results
           gameState.modelAHistory.push({
@@ -112,17 +148,35 @@ export class GameEngine {
           
           console.log(`📈 Running totals: ${modelAName}: ${gameState.modelAScore}, ${modelBName}: ${gameState.modelBScore}`)
           
+          // Add delay between rounds to avoid overwhelming the API
+          if (round < this.TOTAL_ROUNDS) {
+            console.log('⏳ Cooling down 20s before next round...')
+            await new Promise(resolve => setTimeout(resolve, 20000)) // 20 second pause between rounds
+          }
+          
         } catch (roundError) {
           console.error(`💥 Round ${round} failed:`, roundError)
+          consecutiveFailures++
           
-          // Mark match as failed and update status
-          await supabaseAdmin
-            .from('matches')
-            .update({ status: 'failed' })
-            .eq('id', match.id)
+          // Check if we should abort the match
+          if (consecutiveFailures >= MAX_CONSECUTIVE_FAILURES) {
+            console.error(`🚫 Aborting match after ${consecutiveFailures} consecutive failures`)
             
-          const errorMessage = roundError instanceof Error ? roundError.message : String(roundError)
-          throw new Error(`Round ${round} failed: ${errorMessage}`)
+            // Mark match as aborted
+            await supabaseAdmin
+              .from('matches')
+              .update({ status: 'aborted' })
+              .eq('id', match.id)
+              
+            throw new Error(`Match aborted after ${consecutiveFailures} consecutive API failures. Models may be unavailable.`)
+          }
+          
+          // Add significant delay before next round to avoid overwhelming API
+          console.log(`⚠️ Round ${round} failed, waiting 30s before next round (${consecutiveFailures}/${MAX_CONSECUTIVE_FAILURES} consecutive failures)`)
+          await new Promise(resolve => setTimeout(resolve, 30000)) // 30 second cooling off period
+          
+          // Continue to next round (this should rarely happen now that empty responses are handled gracefully)
+          continue
         }
       }
 
@@ -183,26 +237,41 @@ export class GameEngine {
     console.log('\n🧠 AIs are thinking...')
     
     try {
-      // Call both models simultaneously with individual error handling
-      const responseA = await this.openRouter.callModel(modelAName, promptA).catch(error => {
-        console.error(`⚠️ ${modelAName} failed, using empty response fallback:`, error.message)
-        return '' // Return empty string to trigger fallback parsing
+      // Call models sequentially to reduce API pressure and rate limiting
+      console.log(`🎯 Calling ${modelAName} first...`)
+      const responseAValue = await this.openRouter.callModel(modelAName, promptA).catch(error => {
+        console.error(`⚠️ ${modelAName} failed:`, error.message)
+        return ''
       })
-      
-      const responseB = await this.openRouter.callModel(modelBName, promptB).catch(error => {
-        console.error(`⚠️ ${modelBName} failed, using empty response fallback:`, error.message)
-        return '' // Return empty string to trigger fallback parsing
+
+      // Add small delay between calls to be respectful to API
+      console.log('⏳ Brief pause between API calls...')
+      await new Promise(resolve => setTimeout(resolve, 2000)) // 2 second pause
+
+      console.log(`🎯 Calling ${modelBName} second...`)
+      const responseBValue = await this.openRouter.callModel(modelBName, promptB).catch(error => {
+        console.error(`⚠️ ${modelBName} failed:`, error.message)
+        return ''
       })
+
+      // Note: Empty responses are now handled gracefully by parseResponse with random moves
+      // No need to fail the round if we get empty responses
 
       console.log(`\n💭 ${modelAName} reasoning:`)
-      console.log(responseA.slice(0, 300) + (responseA.length > 300 ? '...' : ''))
+      console.log(responseAValue.slice(0, 300) + (responseAValue.length > 300 ? '...' : ''))
       
       console.log(`\n💭 ${modelBName} reasoning:`)
-      console.log(responseB.slice(0, 300) + (responseB.length > 300 ? '...' : ''))
+      console.log(responseBValue.slice(0, 300) + (responseBValue.length > 300 ? '...' : ''))
 
-      // Parse responses
-      const parsedA = this.openRouter.parseResponse(responseA)
-      const parsedB = this.openRouter.parseResponse(responseB)
+      // Parse responses and check for empty response pattern
+      const parsedA = this.openRouter.parseResponse(responseAValue)
+      const parsedB = this.openRouter.parseResponse(responseBValue)
+
+      // Return info about empty responses for tracking at match level
+      const hasEmptyResponse = !responseAValue || !responseBValue
+      if (hasEmptyResponse) {
+        console.log(`⚠️ Empty response detected in round ${gameState.round}`)
+      }
 
       // Calculate scores
       const payoffKey = `${parsedA.move}-${parsedB.move}` as keyof typeof this.PAYOFFS
@@ -231,7 +300,8 @@ export class GameEngine {
         modelAScore: payoffs.player,
         modelBScore: payoffs.opponent,
         modelAReasoning: parsedA.reasoning,
-        modelBReasoning: parsedB.reasoning
+        modelBReasoning: parsedB.reasoning,
+        hasEmptyResponse: hasEmptyResponse
       }
     } catch (error) {
       console.error(`❌ Round ${gameState.round} failed:`, error)
