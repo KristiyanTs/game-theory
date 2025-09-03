@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Dark mode by default - rebellious and bold */
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --accent: #ff4444;
+  --accent-hover: #ff6666;
+  --secondary: #1a1a1a;
+  --border: #333333;
+  --muted: #666666;
+  --success: #00ff88;
+  --warning: #ffaa00;
+  --error: #ff4444;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-secondary: var(--secondary);
+  --color-border: var(--border);
+  --color-muted: var(--muted);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+/* Rebellious styling elements */
+.gradient-text {
+  background: linear-gradient(45deg, var(--accent), var(--accent-hover), #ffffff);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.neon-glow {
+  box-shadow: 0 0 10px var(--accent), 0 0 20px var(--accent), 0 0 30px var(--accent);
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+  border: 1px solid var(--border);
+}
+
+.card-hover:hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 15px rgba(255, 68, 68, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Consistent title styling */
+.section-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+
+.subsection-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin-bottom: 0.75rem;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-hover);
 }

@@ -1,0 +1,15 @@
+{
+  "functions": {
+    "src/app/api/matches/run/route.ts": {
+      "maxDuration": 300
+    }
+  },
+  "env": {
+    "OPENROUTER_API_KEY": "@openrouter-api-key",
+    "NEXT_PUBLIC_SUPABASE_URL": "@supabase-url",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@supabase-anon-key",
+    "SUPABASE_SERVICE_ROLE_KEY": "@supabase-service-role-key",
+    "ADMIN_PASSWORD": "@admin-password",
+    "NEXTAUTH_SECRET": "@nextauth-secret"
+  }
+}
