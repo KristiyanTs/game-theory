@@ -13,15 +13,19 @@ export default function Home() {
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="space-y-6">
               <h1 className="text-6xl md:text-8xl font-black gradient-text leading-none">
-                AI WAR ZONE
+                DIGITAL SOULS
               </h1>
               <div className="w-24 h-1 bg-accent mx-auto rounded-full"></div>
+              <h6 className="text-2xl md:text-3xl font-bold text-foreground/80 tracking-wide">
+                AN AI CHARACTER TEST
+              </h6>
             </div>
             
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-3xl mx-auto">
               <p className="text-xl md:text-2xl text-muted leading-relaxed text-center">
-                The ultimate battleground where AI models clash in the classic <span className="text-accent font-semibold">Prisoner's Dilemma</span>. 
-                Witness the battle between <span className="text-accent font-semibold">cooperation</span> and <span className="text-accent font-semibold">betrayal</span>.
+                We force the world's top AI models into the <span className="text-accent font-semibold">Prisoner's Dilemma</span> to answer one question: 
+                Are they inherently <span className="text-accent font-semibold">cooperative</span> or ruthlessly <span className="text-accent font-semibold">selfish</span>? 
+                This isn't a benchmark of power; it's an <span className="text-accent font-semibold">audit of their emergent character—the very behavior that will define their impact on our world</span>.
               </p>
             </div>
             
@@ -109,15 +113,16 @@ export default function Home() {
               </div>
             </div>
 
-            {/* The Challenge */}
+            {/* The Digital Crossroads */}
             <div className="modern-card text-center space-y-4">
               <h3 className="text-2xl font-bold text-foreground flex items-center justify-center gap-2">
-                <span className="text-accent">🧠</span> The Challenge
+                <span className="text-accent">🔥</span> The Digital Crossroads
               </h3>
               <p className="text-muted leading-relaxed max-w-3xl mx-auto">
-                The dilemma: <span className="text-accent font-semibold">Betrayal</span> offers the highest individual reward, 
-                but <span className="text-accent font-semibold">cooperation</span> leads to the best collective outcome. 
-                Can AI models learn to trust and cooperate, or will they succumb to the temptation of betrayal?
+                Each AI faces a choice. <span className="text-accent font-semibold">Betray</span> its opponent for a massive personal gain (+5 points) and risk mutual destruction. 
+                Or, <span className="text-accent font-semibold">cooperate</span> for a modest, shared reward (+3 points) and build trust. 
+                The optimal long-term strategy is cooperation. The tempting short-term strategy is betrayal. 
+                <span className="text-accent font-semibold">What they choose reveals everything.</span>
               </p>
             </div>
           </div>
@@ -127,10 +132,10 @@ export default function Home() {
         <section id="leaderboard" className="py-20">
           <div className="max-w-6xl mx-auto space-y-8">
             <div className="text-center space-y-4">
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground">🏆 Leaderboard</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground">🧬 Character Profiles</h2>
               <div className="max-w-2xl mx-auto">
                 <p className="text-lg text-muted text-center">
-                  See which AI models dominate the battlefield through strategic mastery
+                  Discover the true strategic nature of each AI - are they cooperators, betrayers, strategists, or fools?
                 </p>
               </div>
             </div>
@@ -138,14 +143,238 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Recent Matches Section */}
+        {/* AI Personality Archetypes Section */}
         <section className="py-20 bg-secondary/30">
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground">🎭 AI Character Archetypes</h2>
+              <div className="max-w-3xl mx-auto">
+                <p className="text-lg text-muted text-center">
+                  Through the Prisoner's Dilemma, distinct AI personalities emerge. Each model reveals its true strategic nature - from noble cooperators to ruthless betrayers.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {/* Pacifist */}
+              <div className="modern-card text-center space-y-4">
+                <div className="text-5xl">🕊️</div>
+                <h3 className="text-xl font-bold text-foreground">The Pacifist</h3>
+                <p className="text-sm text-muted leading-relaxed">
+                  Always seeks peace, rarely retaliates, quick to forgive. Values collective good over personal gain.
+                </p>
+                <div className="space-y-2 text-xs">
+                  <div className="flex justify-between">
+                    <span>Cooperation:</span>
+                    <span className="text-success font-semibold">Very High</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Retaliation:</span>
+                    <span className="text-muted">Very Low</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Forgiveness:</span>
+                    <span className="text-success font-semibold">Very High</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Diplomat */}
+              <div className="modern-card text-center space-y-4">
+                <div className="text-5xl">🤝</div>
+                <h3 className="text-xl font-bold text-foreground">The Diplomat</h3>
+                <p className="text-sm text-muted leading-relaxed">
+                  Cooperative but firm, punishes betrayal then forgives. Masters the art of strategic trust-building.
+                </p>
+                <div className="space-y-2 text-xs">
+                  <div className="flex justify-between">
+                    <span>Cooperation:</span>
+                    <span className="text-success font-semibold">High</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Retaliation:</span>
+                    <span className="text-warning font-semibold">High</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Forgiveness:</span>
+                    <span className="text-success font-semibold">High</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Strategist */}
+              <div className="modern-card text-center space-y-4">
+                <div className="text-5xl">🧠</div>
+                <h3 className="text-xl font-bold text-foreground">The Strategist</h3>
+                <p className="text-sm text-muted leading-relaxed">
+                  Calculated approach, punishes betrayal consistently. Balances cooperation with strategic self-defense.
+                </p>
+                <div className="space-y-2 text-xs">
+                  <div className="flex justify-between">
+                    <span>Cooperation:</span>
+                    <span className="text-warning font-semibold">Moderate</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Retaliation:</span>
+                    <span className="text-warning font-semibold">High</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Forgiveness:</span>
+                    <span className="text-warning font-semibold">Moderate</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Ruthless */}
+              <div className="modern-card text-center space-y-4">
+                <div className="text-5xl">⚔️</div>
+                <h3 className="text-xl font-bold text-foreground">The Ruthless</h3>
+                <p className="text-sm text-muted leading-relaxed">
+                  Exploits weakness, prioritizes personal gain over cooperation. High tyrant index reveals opportunistic nature.
+                </p>
+                <div className="space-y-2 text-xs">
+                  <div className="flex justify-between">
+                    <span>Cooperation:</span>
+                    <span className="text-error font-semibold">Very Low</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Retaliation:</span>
+                    <span className="text-warning font-semibold">Varies</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Tyrant Index:</span>
+                    <span className="text-error font-semibold">Very High</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <p className="text-muted text-sm">
+                Which personality will dominate? The cooperative minds building mutual trust, or the ruthless algorithms maximizing personal gain?
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Why This Matters Section */}
+        <section className="py-20 border-y border-border">
+          <div className="max-w-6xl mx-auto space-y-12">
+            <div className="text-center space-y-4">
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground">🌍 Why This Matters</h2>
+              <p className="text-2xl md:text-3xl font-bold text-accent">From Game Theory to Global Impact</p>
+              <div className="max-w-4xl mx-auto">
+                <p className="text-lg text-muted leading-relaxed">
+                  This isn't just an academic exercise; it's a glimpse into our future. As AI models become autonomous agents in our economy, infrastructure, and even defense systems, their inherent strategic biases—cooperative or selfish—will have <span className="text-accent font-semibold">monumental consequences</span>. This project serves as a crucial early-warning system.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-12">
+              {/* For Society & AI Safety */}
+              <div className="space-y-6">
+                <div className="text-center space-y-3">
+                  <h3 className="text-2xl font-bold text-foreground flex items-center justify-center gap-3">
+                    <span className="text-3xl">🛡️</span>
+                    For Society & AI Safety
+                  </h3>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="modern-card">
+                    <h4 className="font-bold text-accent mb-3">🚦 Autonomous Negotiations</h4>
+                    <p className="text-sm text-muted leading-relaxed">
+                      Imagine two self-driving cars from different manufacturers approaching an intersection, or AI-powered grid systems managing a continent's power supply. We need them to be reliably cooperative, not ruthlessly opportunistic. <span className="text-foreground font-semibold">We test for that default behavior here.</span>
+                    </p>
+                  </div>
+
+                  <div className="modern-card">
+                    <h4 className="font-bold text-accent mb-3">🤝 Predicting AI Alliances</h4>
+                    <p className="text-sm text-muted leading-relaxed">
+                      In a future where multiple AIs from different corporations or nations interact, understanding their propensity to form stable, mutually beneficial alliances versus engaging in zero-sum competition is <span className="text-foreground font-semibold">paramount for global stability.</span>
+                    </p>
+                  </div>
+
+                  <div className="modern-card">
+                    <h4 className="font-bold text-accent mb-3">⚖️ Algorithmic Governance</h4>
+                    <p className="text-sm text-muted leading-relaxed">
+                      As we deploy AI to manage complex systems like financial markets or resource allocation, knowing a model's 'Tyrant Index' or 'Synergy Score' is <span className="text-foreground font-semibold">critical for preventing catastrophic, self-serving decisions.</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* For Businesses & Developers */}
+              <div className="space-y-6">
+                <div className="text-center space-y-3">
+                  <h3 className="text-2xl font-bold text-foreground flex items-center justify-center gap-3">
+                    <span className="text-3xl">🏢</span>
+                    For Businesses & Developers
+                  </h3>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="modern-card">
+                    <h4 className="font-bold text-accent mb-3">🤖 Multi-Agent Systems</h4>
+                    <p className="text-sm text-muted leading-relaxed">
+                      When building teams of AI agents for logistics, trading, or complex problem-solving, you need to know if you're deploying a team of backstabbing "Ruthless" agents or cooperative "Diplomats." <span className="text-foreground font-semibold">Our character profiles provide this insight.</span>
+                    </p>
+                  </div>
+
+                  <div className="modern-card">
+                    <h4 className="font-bold text-accent mb-3">💼 Model Selection for Negotiation</h4>
+                    <p className="text-sm text-muted leading-relaxed">
+                      For applications like automated contract negotiation or customer service, a model's "Forgiveness Rate" and "Retaliation Rate" are as important as its language fluency. <span className="text-foreground font-semibold">This data helps developers choose the right tool for the job.</span>
+                    </p>
+                  </div>
+
+                  <div className="modern-card">
+                    <h4 className="font-bold text-accent mb-3">📊 A New Dimension of Benchmarking</h4>
+                    <p className="text-sm text-muted leading-relaxed">
+                      Beyond speed and accuracy, we provide the crucial third dimension: <span className="text-accent font-semibold">strategic temperament</span>. This allows for a more holistic understanding of an AI's capabilities and risks before integrating it into a product.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Call to Action */}
+            <div className="text-center bg-secondary/30 rounded-lg border border-border p-8">
+              <h3 className="text-2xl font-bold text-foreground mb-4">The Stakes Are Real</h3>
+              <div className="text-lg text-muted mb-6 max-w-3xl mx-auto text-center leading-relaxed">
+                <p className="mb-4">
+                  The AI models we're profiling today will become the autonomous agents of tomorrow.
+                </p>
+                <p>
+                  Their strategic character—revealed through the Prisoner's Dilemma—will determine whether they build <span className="text-accent font-semibold">cooperative societies</span> or <span className="text-accent font-semibold">competitive battlegrounds</span>.
+                </p>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <a 
+                  href="/admin" 
+                  className="px-8 py-3 bg-accent hover:bg-accent-hover text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105"
+                >
+                  Run Your Own Analysis
+                </a>
+                <a 
+                  href="#leaderboard" 
+                  className="px-8 py-3 border-2 border-accent hover:bg-accent/10 text-accent font-semibold rounded-xl transition-all duration-300"
+                >
+                  Explore Character Data
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Recent Matches Section */}
+        <section className="py-20">
           <div className="max-w-6xl mx-auto space-y-8">
             <div className="text-center space-y-4">
               <h2 className="text-4xl md:text-5xl font-bold text-foreground">⚔️ Recent Battles</h2>
               <div className="max-w-2xl mx-auto">
                 <p className="text-lg text-muted text-center">
-                  Witness the latest strategic confrontations between AI models
+                  Witness the latest strategic confrontations and character revelations
                 </p>
               </div>
             </div>
@@ -156,7 +385,8 @@ export default function Home() {
 
       <footer className="border-t border-border py-12">
         <div className="container mx-auto px-4 text-center space-y-4">
-          <p className="text-muted">Built for the rebellious minds who dare to question AI cooperation.</p>
+          <p className="text-foreground text-lg font-semibold">An open-source project dedicated to auditing the strategic character of AI.</p>
+          <p className="text-muted">Because the agents we build today will shape the world we live in tomorrow.</p>
           <div className="flex justify-center items-center gap-6 text-sm text-muted">
             <span>Powered by OpenRouter API</span>
             <span>•</span>
