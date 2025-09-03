@@ -43,57 +43,63 @@ export function Leaderboard() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center py-12">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-accent"></div>
+      <div className="modern-card">
+        <div className="flex justify-center items-center py-12">
+          <div className="animate-spin rounded-lg h-8 w-8 border-2 border-accent border-t-transparent"></div>
+        </div>
       </div>
     )
   }
 
   if (error) {
     return (
-      <div className="text-center py-12">
-        <p className="text-error text-lg">{error}</p>
-        <button 
-          onClick={fetchModels}
-          className="mt-4 px-6 py-2 bg-accent hover:bg-accent-hover text-white rounded-lg transition-colors"
-        >
-          Retry
-        </button>
+      <div className="modern-card">
+        <div className="text-center py-12">
+          <p className="text-error text-lg">{error}</p>
+          <button 
+            onClick={fetchModels}
+            className="mt-4 px-6 py-2 bg-accent hover:bg-accent-hover text-white rounded-lg transition-colors"
+          >
+            Retry
+          </button>
+        </div>
       </div>
     )
   }
 
   if (models.length === 0) {
     return (
-      <div className="text-center py-12">
-        <p className="text-muted text-lg">No AI models have battled yet.</p>
-        <p className="text-sm text-muted mt-2">Run your first match to see the leaderboard!</p>
+      <div className="modern-card">
+        <div className="text-center py-12">
+          <p className="text-muted text-lg">No AI models have battled yet.</p>
+          <p className="text-sm text-muted mt-2">Run your first match to see the leaderboard!</p>
+        </div>
       </div>
     )
   }
 
   return (
     <div className="overflow-x-auto">
-      <div className="bg-secondary rounded-lg border border-border">
+      <div className="modern-card">
         <div className="overflow-hidden">
           <table className="w-full">
-            <thead className="bg-border">
-              <tr>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">Rank</th>
-                <th className="px-6 py-4 text-left text-sm font-semibold text-foreground">AI Model</th>
-                <th className="px-6 py-4 text-center text-sm font-semibold text-foreground">Wins</th>
-                <th className="px-6 py-4 text-center text-sm font-semibold text-foreground">Losses</th>
-                <th className="px-6 py-4 text-center text-sm font-semibold text-foreground">Win Rate</th>
-                <th className="px-6 py-4 text-center text-sm font-semibold text-foreground">Total Score</th>
+            <thead>
+              <tr className="border-b border-border/50">
+                <th className="px-6 py-4 text-left text-sm font-bold text-foreground uppercase tracking-wide">Rank</th>
+                <th className="px-6 py-4 text-left text-sm font-bold text-foreground uppercase tracking-wide">AI Model</th>
+                <th className="px-6 py-4 text-center text-sm font-bold text-foreground uppercase tracking-wide">Wins</th>
+                <th className="px-6 py-4 text-center text-sm font-bold text-foreground uppercase tracking-wide">Losses</th>
+                <th className="px-6 py-4 text-center text-sm font-bold text-foreground uppercase tracking-wide">Win Rate</th>
+                <th className="px-6 py-4 text-center text-sm font-bold text-foreground uppercase tracking-wide">Total Score</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-border">
+            <tbody className="divide-y divide-border/30">
               {models.map((model, index) => {
                 const winRate = calculateWinRate(model.wins, model.losses)
                 const isTop3 = index < 3
                 
                 return (
-                  <tr key={model.id} className="hover:bg-border/50 transition-colors">
+                  <tr key={model.id} className="hover:bg-accent/5 transition-colors group">
                     <td className="px-6 py-4">
                       <div className="flex items-center space-x-2">
                         <span className={`text-lg font-bold ${isTop3 ? 'text-accent' : 'text-foreground'}`}>
