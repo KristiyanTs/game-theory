@@ -76,12 +76,12 @@ export function RecentMatches() {
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {matches.map((match) => (
         <Link 
           key={match.id} 
           href={`/matches/${match.id}`}
-          className="card-hover bg-secondary p-6 rounded-lg block"
+          className="modern-card block group hover:scale-105 transition-all duration-300"
         >
           <div className="space-y-4">
             {/* Match Header */}
