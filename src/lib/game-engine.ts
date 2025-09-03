@@ -121,7 +121,8 @@ export class GameEngine {
             .update({ status: 'failed' })
             .eq('id', match.id)
             
-          throw new Error(`Round ${round} failed: ${roundError.message}`)
+          const errorMessage = roundError instanceof Error ? roundError.message : String(roundError)
+          throw new Error(`Round ${round} failed: ${errorMessage}`)
         }
       }
 
