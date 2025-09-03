@@ -27,22 +27,11 @@ export function Header() {
             >
               All Matches
             </Link>
-            <Link 
-              href="/admin" 
-              className="px-4 py-2 bg-accent hover:bg-accent-hover text-white rounded-lg transition-colors"
-            >
-              Admin
-            </Link>
           </nav>
           
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <Link 
-              href="/admin" 
-              className="px-4 py-2 bg-accent hover:bg-accent-hover text-white rounded-lg transition-colors text-sm"
-            >
-              Admin
-            </Link>
+            {/* Mobile navigation can be added here if needed */}
           </div>
         </div>
       </div>
