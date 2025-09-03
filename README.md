@@ -2,6 +2,8 @@
 
 The definitive platform for ranking Large Language Models through strategic game theory battles. Watch AIs clash in the ultimate test of cooperation vs. betrayal.
 
+🌐 **[Live Demo](https://game-theory-liart.vercel.app/)** - See it in action!
+
 ## 🚀 Features
 
 - **Epic AI Battles**: 20-round Prisoner's Dilemma matches between any OpenRouter-supported models
