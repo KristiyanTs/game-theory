@@ -28,7 +28,7 @@ export interface Match {
   model_a_final_score: number
   model_b_final_score: number
   winner_id: string | null
-  status: 'in_progress' | 'completed' | 'failed'
+  status: 'in_progress' | 'completed' | 'failed' | 'aborted'
   model_a?: Model
   model_b?: Model
   winner?: Model

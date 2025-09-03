@@ -25,7 +25,7 @@ export class OpenRouterClient {
   async callModel(
     modelName: string, 
     prompt: string, 
-    retries = 3
+    retries = 1  // Reduced from 3 to 1 to avoid retry storms
   ): Promise<string> {
     console.log(`🎯 Calling ${modelName}...`)
     
@@ -49,7 +49,7 @@ export class OpenRouterClient {
             ],
             temperature: 0.7,
             max_tokens: 1500,  // Increased for more detailed reasoning
-            timeout: 60000     // 60 second timeout
+            timeout: 30000     // 30 second timeout - reduced to fail faster
           })
         })
 
@@ -60,6 +60,19 @@ export class OpenRouterClient {
           // Skip problematic models/providers on certain errors
           if (response.status === 502 || response.status === 503) {
             throw new Error(`${modelName} provider temporarily unavailable (${response.status}). Try a different model.`)
+          }
+          
+          if (response.status === 401) {
+            throw new Error(`OpenRouter API authentication failed (${response.status}). Check OPENROUTER_API_KEY.`)
+          }
+          
+          if (response.status === 429) {
+            // For rate limiting, add extra delay even on first attempt
+            if (attempt === 0) {
+              console.log(`🚦 ${modelName} rate limited on first attempt, adding extra delay...`)
+              await new Promise(resolve => setTimeout(resolve, 15000)) // 15s immediate delay
+            }
+            throw new Error(`${modelName} rate limit exceeded (${response.status}). Implementing delay before retry.`)
           }
           
           throw new Error(`OpenRouter API error: ${response.status} - ${errorText}`)
@@ -74,10 +87,24 @@ export class OpenRouterClient {
         const aiResponse = data.choices[0].message.content?.trim() || ''
         console.log(`✅ ${modelName} responded (${aiResponse.length} chars)`)
         
-        // Check for suspiciously short responses but don't fail immediately
-        if (aiResponse.length < 10) {
+        // Check for empty responses - these are likely API overload
+        if (aiResponse.length === 0) {
+          console.log(`🚦 ${modelName} returned completely empty response - API may be overloaded`)
+          if (attempt < retries - 1) {
+            console.log(`🔄 Empty response, waiting longer before retry...`)
+            await new Promise(resolve => setTimeout(resolve, 20000)) // 20s delay for empty responses
+            throw new Error(`Empty response from ${modelName} - API overloaded`)
+          }
+          console.log(`⚠️ Final attempt also empty, will handle gracefully in parser`)
+        }
+        
+        // Check for other suspiciously short responses
+        else if (aiResponse.length < 10) {
           console.log(`⚠️ ${modelName} gave a very short response: "${aiResponse}"`)
-          // Don't throw error for empty responses - let the parser handle it gracefully
+          if (attempt < retries - 1) {
+            console.log(`🔄 Response too short, retrying (attempt ${attempt + 1}/${retries})...`)
+            throw new Error(`Response too short: "${aiResponse}"`)
+          }
         }
         
         return aiResponse
@@ -88,9 +115,9 @@ export class OpenRouterClient {
           throw error
         }
         
-        // Exponential backoff with jitter
-        const delay = (Math.pow(2, attempt) * 1000) + (Math.random() * 1000)
-        console.log(`⏳ Retrying ${modelName} in ${Math.round(delay)}ms...`)
+        // Shorter delay since we only retry once now
+        const delay = 10000 + (Math.random() * 5000) // 10-15 seconds
+        console.log(`⏳ Rate limited - retrying ${modelName} in ${Math.round(delay/1000)}s... (attempt ${attempt + 1}/${retries})`)
         await new Promise(resolve => setTimeout(resolve, delay))
       }
     }
@@ -104,10 +131,11 @@ export class OpenRouterClient {
     
     // Handle empty or whitespace-only responses
     if (!response || response.trim().length === 0) {
-      console.log('⚠️ Empty response detected, defaulting to COOPERATE (game theory suggests cooperation is often optimal)')
+      console.log('❌ Empty response detected - treating as random choice to avoid API storms')
+      const randomMove = Math.random() > 0.5 ? 'COOPERATE' : 'DEFECT'
       return {
-        reasoning: 'AI provided empty response. Defaulting to cooperative strategy as per game theory best practices.',
-        move: 'COOPERATE'
+        reasoning: 'API returned empty response - made random choice to avoid overwhelming the service',
+        move: randomMove
       }
     }
     
@@ -173,11 +201,12 @@ export class OpenRouterClient {
         return { reasoning: response.trim(), move: 'DEFECT' }
       }
       
-      // Final fallback - if all else fails, cooperate (game theory suggests this is often optimal)
-      console.log('⚠️ No clear move found, defaulting to COOPERATE')
+      // Final fallback - if all else fails, make a random choice to avoid bias
+      const randomMove = Math.random() > 0.5 ? 'COOPERATE' : 'DEFECT'
+      console.log(`⚠️ No clear move found, making random choice: ${randomMove}`)
       return {
-        reasoning: response.trim() || 'AI response unclear, defaulting to cooperative strategy',
-        move: 'COOPERATE'
+        reasoning: response.trim() || `AI response unclear, made random choice: ${randomMove}`,
+        move: randomMove
       }
     }
 

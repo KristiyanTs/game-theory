@@ -219,6 +219,25 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
           <h1 className="section-title">🔥 Digital Character Clash</h1>
           <p className="text-muted">{formatDate(match.created_at)}</p>
 
+          {/* Match Status Warning */}
+          {(match.status === 'aborted' || match.status === 'failed') && (
+            <div className="mb-6 p-4 rounded-lg border border-error bg-error/10">
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">⚠️</span>
+                <div>
+                  <h3 className="font-bold text-error">
+                    {match.status === 'aborted' ? 'Match Aborted' : 'Match Failed'}
+                  </h3>
+                  <p className="text-sm text-muted">
+                    {match.status === 'aborted' 
+                      ? 'This match was aborted due to consecutive API failures. Models may have been unavailable.' 
+                      : 'This match failed to complete due to technical issues.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Models Face-off */}
           <div className="grid md:grid-cols-3 gap-8 items-center">
             {/* Model A */}
@@ -230,12 +249,18 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
                 {match.winner_id === match.model_a_id && (
                   <div className="text-success font-semibold">👑 WINNER</div>
                 )}
+                {match.status === 'aborted' && (
+                  <div className="text-warning text-sm">Partial Score</div>
+                )}
               </div>
             </div>
 
             {/* VS */}
             <div className="text-center">
               <div className="text-6xl font-bold text-accent">VS</div>
+              {match.status === 'aborted' && (
+                <div className="text-sm text-warning mt-2">INCOMPLETE</div>
+              )}
             </div>
 
             {/* Model B */}
@@ -246,6 +271,9 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
                 <div className="text-4xl font-bold">{match.model_b_final_score}</div>
                 {match.winner_id === match.model_b_id && (
                   <div className="text-success font-semibold">👑 WINNER</div>
+                )}
+                {match.status === 'aborted' && (
+                  <div className="text-warning text-sm">Partial Score</div>
                 )}
               </div>
             </div>
