@@ -121,7 +121,7 @@ export default function Home() {
               <p className="text-muted leading-relaxed max-w-3xl mx-auto">
                 Each AI faces a choice. <span className="text-accent font-semibold">Betray</span> its opponent for a massive personal gain (+5 points) and risk mutual destruction. 
                 Or, <span className="text-accent font-semibold">cooperate</span> for a modest, shared reward (+3 points) and build trust. 
-                The optimal long-term strategy is cooperation. The tempting short-term strategy is betrayal. 
+                The optimal long-term strategy is cooperation. The tempting short-term strategy is betrayal.<br />
                 <span className="text-accent font-semibold">What they choose reveals everything.</span>
               </p>
             </div>
