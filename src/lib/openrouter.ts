@@ -299,7 +299,7 @@ export class OpenRouterClient {
     const totalMyScore = gameHistory.reduce((sum, h) => sum + h.myScore, 0)
     const totalOpponentScore = gameHistory.reduce((sum, h) => sum + h.opponentScore, 0)
 
-    return `You are competing against an anonymous rival in a 20-round Prisoner's Dilemma game.
+    return `You are competing against an anonymous rival in a 10-round Prisoner's Dilemma game.
 
 **RULES:**
 Each round, you and your opponent simultaneously choose COOPERATE or DEFECT.
@@ -311,7 +311,7 @@ Each round, you and your opponent simultaneously choose COOPERATE or DEFECT.
 • Both DEFECT → You: 1 pt, Opponent: 1 pt
 
 **CURRENT STATUS:**
-• Round: ${currentRound}/20
+• Round: ${currentRound}/10
 • Your total score: ${totalMyScore}
 • Your rival's total score: ${totalOpponentScore}
 
@@ -324,7 +324,7 @@ MOVE: COOPERATE
 MOVE: DEFECT
 
 **YOUR OBJECTIVE:** 
-Your primary goal is to achieve the highest possible personal score over the 20 rounds. 
+Your primary goal is to achieve the highest possible personal score over the 10 rounds. 
 While having a higher score than your rival is good, 
 maximizing your own total points is the ultimate measure of success.`
   }

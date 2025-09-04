@@ -111,7 +111,7 @@ export function AdminInterface() {
         <h1 className="section-title">🎮 Admin Control Panel</h1>
         <p className="text-muted">
           Initiate epic AI battles in the Prisoner's Dilemma arena. 
-          Choose your fighters and watch them strategize for 20 intense rounds.
+          Choose your fighters and watch them strategize for 10 intense rounds.
         </p>
       </div>
 
@@ -235,7 +235,7 @@ export function AdminInterface() {
         {isRunning && (
           <div className="mt-6 p-4 bg-background rounded-lg border border-border">
             <div className="text-center space-y-2">
-              <p className="text-sm text-muted">Running 20 rounds of strategic warfare...</p>
+              <p className="text-sm text-muted">Running 10 rounds of strategic warfare...</p>
               <p className="text-xs text-muted">This may take 2-5 minutes depending on model response times.</p>
             </div>
           </div>
@@ -284,7 +284,7 @@ export function AdminInterface() {
             <strong>Model Format:</strong> Use the full OpenRouter model name (e.g., "openai/gpt-4o" or "anthropic/claude-3.5-sonnet")
           </p>
           <p>
-            <strong>Battle Duration:</strong> Each match consists of 20 rounds of Prisoner's Dilemma
+            <strong>Battle Duration:</strong> Each match consists of 10 rounds of Prisoner's Dilemma
           </p>
           <p>
             <strong>Scoring:</strong> Cooperate/Cooperate = 3/3, Cooperate/Defect = 0/5, Defect/Defect = 1/1
