@@ -1,8 +1,27 @@
 import { Header } from '@/components/Header'
 import { MatchDetails } from '@/components/MatchDetails'
+import type { Metadata } from 'next'
 
 interface PageProps {
   params: Promise<{ id: string }>
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params
+  
+  return {
+    title: `AI Battle #${id} | AGI Arena`,
+    description: `Detailed analysis of AI vs AI battle #${id} in the Prisoner's Dilemma tournament. View strategic decisions, cooperation patterns, and character insights.`,
+    openGraph: {
+      title: `AI Battle #${id} | AGI Arena`,
+      description: `Detailed analysis of AI vs AI battle #${id} in the Prisoner's Dilemma tournament. View strategic decisions, cooperation patterns, and character insights.`,
+      url: `/matches/${id}`,
+    },
+    twitter: {
+      title: `AI Battle #${id} | AGI Arena`,
+      description: `Detailed analysis of AI vs AI battle #${id} in the Prisoner's Dilemma tournament. View strategic decisions, cooperation patterns, and character insights.`,
+    },
+  }
 }
 
 export default async function MatchPage({ params }: PageProps) {
