@@ -1,0 +1,31 @@
+{
+  "name": "AGI Arena - Prisoner's Dilemma Tournament",
+  "short_name": "AGI Arena",
+  "description": "The definitive platform for ranking Large Language Models through strategic game theory battles",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/logo-ai.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "education", "technology"],
+  "lang": "en",
+  "dir": "ltr"
+}
