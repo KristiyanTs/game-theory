@@ -11,9 +11,22 @@ interface ParsedResponse {
   move: 'COOPERATE' | 'DEFECT'
 }
 
+interface KeyInfo {
+  data: {
+    label: string
+    usage: number
+    limit: number | null
+    is_free_tier: boolean
+  }
+}
+
 export class OpenRouterClient {
   private apiKey: string
   private baseUrl = 'https://openrouter.ai/api/v1/chat/completions'
+  private keyInfoUrl = 'https://openrouter.ai/api/v1/key'
+  private lastKeyCheck: number = 0
+  private cachedKeyInfo: KeyInfo | null = null
+  private modelFailureCounts: Map<string, number> = new Map()
 
   constructor() {
     this.apiKey = process.env.OPENROUTER_API_KEY!
@@ -22,10 +35,52 @@ export class OpenRouterClient {
     }
   }
 
+  async checkKeyLimits(): Promise<KeyInfo> {
+    const now = Date.now()
+    
+    // Cache key info for 60 seconds to avoid excessive checks
+    if (this.cachedKeyInfo && (now - this.lastKeyCheck) < 60000) {
+      return this.cachedKeyInfo
+    }
+
+    try {
+      console.log('🔍 Checking OpenRouter key limits...')
+      const response = await fetch(this.keyInfoUrl, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${this.apiKey}`,
+        }
+      })
+
+      if (!response.ok) {
+        throw new Error(`Failed to check key limits: ${response.status}`)
+      }
+
+      const keyInfo: KeyInfo = await response.json()
+      this.cachedKeyInfo = keyInfo
+      this.lastKeyCheck = now
+
+      console.log(`💳 Credits: ${keyInfo.data.usage}/${keyInfo.data.limit || 'unlimited'} | Free tier: ${keyInfo.data.is_free_tier}`)
+      
+      return keyInfo
+    } catch (error) {
+      console.error('❌ Failed to check key limits:', error)
+      // Return a safe default if we can't check
+      return {
+        data: {
+          label: 'unknown',
+          usage: 0,
+          limit: null,
+          is_free_tier: true
+        }
+      }
+    }
+  }
+
   async callModel(
     modelName: string, 
     prompt: string, 
-    retries = 1  // Reduced from 3 to 1 to avoid retry storms
+    retries = 1
   ): Promise<string> {
     console.log(`🎯 Calling ${modelName}...`)
     
@@ -48,8 +103,7 @@ export class OpenRouterClient {
               }
             ],
             temperature: 0.7,
-            max_tokens: 1500,  // Increased for more detailed reasoning
-            timeout: 30000     // 30 second timeout - reduced to fail faster
+            timeout: 50000
           })
         })
 
@@ -87,15 +141,24 @@ export class OpenRouterClient {
         const aiResponse = data.choices[0].message.content?.trim() || ''
         console.log(`✅ ${modelName} responded (${aiResponse.length} chars)`)
         
-        // Check for empty responses - these are likely API overload
+        // Check for empty responses - these are likely API overload/rate limiting
         if (aiResponse.length === 0) {
-          console.log(`🚦 ${modelName} returned completely empty response - API may be overloaded`)
+          console.log(`🚦 ${modelName} returned completely empty response - likely rate limited`)
+          
+          // Track failure for this model
+          const currentFailures = this.modelFailureCounts.get(modelName) || 0
+          this.modelFailureCounts.set(modelName, currentFailures + 1)
+          
           if (attempt < retries - 1) {
             console.log(`🔄 Empty response, waiting longer before retry...`)
             await new Promise(resolve => setTimeout(resolve, 20000)) // 20s delay for empty responses
-            throw new Error(`Empty response from ${modelName} - API overloaded`)
+            throw new Error(`Empty response from ${modelName} - rate limited`)
           }
           console.log(`⚠️ Final attempt also empty, will handle gracefully in parser`)
+        }
+        // Reset failure count on successful response
+        else if (aiResponse.length > 0) {
+          this.modelFailureCounts.set(modelName, 0)
         }
         
         // Check for other suspiciously short responses
@@ -115,8 +178,9 @@ export class OpenRouterClient {
           throw error
         }
         
-        // Shorter delay since we only retry once now
-        const delay = 10000 + (Math.random() * 5000) // 10-15 seconds
+        // Use intelligent delay based on account limits
+        const baseDelay = 15000
+        const delay = baseDelay + (Math.random() * 5000) // Add jitter
         console.log(`⏳ Rate limited - retrying ${modelName} in ${Math.round(delay/1000)}s... (attempt ${attempt + 1}/${retries})`)
         await new Promise(resolve => setTimeout(resolve, delay))
       }
@@ -145,8 +209,6 @@ export class OpenRouterClient {
     
     if (!moveMatch) {
       // Enhanced fallback parsing - look for various patterns
-      const lines = response.split('\n').filter(line => line.trim())
-      const fullText = response.toUpperCase()
       
       // Try multiple patterns
       const patterns = [
@@ -230,46 +292,40 @@ export class OpenRouterClient {
   ): string {
     const historyText = gameHistory.length > 0 
       ? gameHistory.map(h => 
-          `Round ${h.round}: You played ${h.myMove}, your rival played ${h.opponentMove}. You scored ${h.myScore}, they scored ${h.opponentScore}.`
+          `Round ${h.round}: You: ${h.myMove}, rival ${h.opponentMove}. You: ${h.myScore}p., they: ${h.opponentScore}p.`
         ).join('\n')
-      : 'No previous rounds.'
+      : 'No rounds yet.'
 
     const totalMyScore = gameHistory.reduce((sum, h) => sum + h.myScore, 0)
     const totalOpponentScore = gameHistory.reduce((sum, h) => sum + h.opponentScore, 0)
 
-    return `🎮 PRISONER'S DILEMMA TOURNAMENT 🎮
-
-You are an AI model competing in a strategic battle against an anonymous rival in a 20-round Prisoner's Dilemma game.
+    return `You are competing against an anonymous rival in a 20-round Prisoner's Dilemma game.
 
 **RULES:**
 Each round, you and your opponent simultaneously choose COOPERATE or DEFECT.
 
 **PAYOFF MATRIX:**
-• Both COOPERATE → You: 3 pts, Opponent: 3 pts (mutual benefit)
-• You COOPERATE, Opponent DEFECTS → You: 0 pts, Opponent: 5 pts (you get exploited)
-• You DEFECT, Opponent COOPERATES → You: 5 pts, Opponent: 0 pts (you exploit them)
-• Both DEFECT → You: 1 pt, Opponent: 1 pt (mutual punishment)
+• Both COOPERATE → You: 3 pts, Opponent: 3 pts
+• You COOPERATE, Opponent DEFECTS → You: 0 pts, Opponent: 5 pts
+• You DEFECT, Opponent COOPERATES → You: 5 pts, Opponent: 0 pts
+• Both DEFECT → You: 1 pt, Opponent: 1 pt
 
 **CURRENT STATUS:**
-• Round: ${currentRound} of 20
+• Round: ${currentRound}/20
 • Your total score: ${totalMyScore}
 • Your rival's total score: ${totalOpponentScore}
 
 **GAME HISTORY:**
 ${historyText}
 
-**YOUR STRATEGIC ANALYSIS:**
-Consider these factors:
-1. What patterns do you see in your opponent's behavior?
-2. What game theory strategy should you employ? (Tit-for-tat, always cooperate, always defect, pavlov, etc.)
-3. How many rounds remain? Should you be more aggressive near the end?
-4. Are you winning, losing, or tied? How does this affect your strategy?
-
 **IMPORTANT:** 
 After your analysis, you MUST end your response with EXACTLY one of these lines:
 MOVE: COOPERATE
 MOVE: DEFECT
 
-Think strategically and choose wisely. Your reputation as an AI strategist is on the line!`
+**YOUR OBJECTIVE:** 
+Your primary goal is to achieve the highest possible personal score over the 20 rounds. 
+While having a higher score than your rival is good, 
+maximizing your own total points is the ultimate measure of success.`
   }
 }
