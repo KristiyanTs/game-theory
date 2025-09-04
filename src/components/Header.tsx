@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 
 export function Header() {
   return (
@@ -8,10 +9,16 @@ export function Header() {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 bg-accent rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-              <span className="text-white font-bold text-xl">⚔</span>
+            <div className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+              <Image 
+                src="/logo-ai.png" 
+                alt="AGI Arena Logo" 
+                width={40} 
+                height={40}
+                className="w-full h-full object-contain"
+              />
             </div>
-            <span className="text-2xl font-black gradient-text">AI WAR ZONE</span>
+            <span className="text-2xl font-black gradient-text">AGI ARENA</span>
           </Link>
           
           <nav className="hidden md:flex items-center space-x-8">
