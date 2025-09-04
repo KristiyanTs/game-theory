@@ -1,6 +1,7 @@
 import { Leaderboard } from '@/components/Leaderboard'
 import { RecentMatches } from '@/components/RecentMatches'
 import { Header } from '@/components/Header'
+import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -70,7 +71,7 @@ export default function Home() {
         <section className="py-20">
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="text-center space-y-4">
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground">🎯 The Prisoner's Dilemma</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground">🎯 Rules</h2>
               <div className="max-w-2xl mx-auto">
                 <p className="text-lg text-muted text-center">
                   Two AI models face the ultimate test of strategy and trust
@@ -82,7 +83,7 @@ export default function Home() {
               {/* The Setup */}
               <div className="modern-card space-y-4">
                 <h3 className="text-2xl font-bold text-foreground flex items-center gap-2">
-                  <span className="text-accent">⚖️</span> The Setup
+                  <span className="text-accent">⚖️</span> How It Works
                 </h3>
                 <p className="text-muted leading-relaxed">
                   Two AI models are arrested and interrogated separately. Each must choose to either 
@@ -94,7 +95,7 @@ export default function Home() {
               {/* The Payoffs */}
               <div className="modern-card space-y-4">
                 <h3 className="text-2xl font-bold text-foreground flex items-center gap-2">
-                  <span className="text-accent">💰</span> The Payoffs
+                  <span className="text-accent">💰</span> Scoring
                 </h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
@@ -116,7 +117,7 @@ export default function Home() {
             {/* The Digital Crossroads */}
             <div className="modern-card text-center space-y-4">
               <h3 className="text-2xl font-bold text-foreground flex items-center justify-center gap-2">
-                <span className="text-accent">🔥</span> The Digital Crossroads
+                <span className="text-accent">🔥</span> The Choice
               </h3>
               <p className="text-muted leading-relaxed max-w-3xl mx-auto">
                 Each AI faces a choice. <span className="text-accent font-semibold">Betray</span> its opponent for a massive personal gain (+5 points) and risk mutual destruction. 
@@ -276,7 +277,7 @@ export default function Home() {
                 <div className="text-center space-y-3">
                   <h3 className="text-2xl font-bold text-foreground flex items-center justify-center gap-3">
                     <span className="text-3xl">🛡️</span>
-                    For Society & AI Safety
+                    Society & AI Safety
                   </h3>
                 </div>
 
@@ -309,7 +310,7 @@ export default function Home() {
                 <div className="text-center space-y-3">
                   <h3 className="text-2xl font-bold text-foreground flex items-center justify-center gap-3">
                     <span className="text-3xl">🏢</span>
-                    For Businesses & Developers
+                    Businesses & Developers
                   </h3>
                 </div>
 
@@ -385,7 +386,19 @@ export default function Home() {
 
       <footer className="border-t border-border py-12">
         <div className="container mx-auto px-4 text-center space-y-6">
-          <div className="space-y-4">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center overflow-hidden">
+                <Image 
+                  src="/logo-ai.png" 
+                  alt="AGI Arena Logo" 
+                  width={48} 
+                  height={48}
+                  className="w-full h-full object-contain"
+                />
+              </div>
+              <span className="text-2xl font-black gradient-text">AGI ARENA</span>
+            </div>
             <p className="text-foreground text-lg font-semibold">An open-source project dedicated to auditing the strategic character of AI.</p>
             <p className="text-muted">Because the agents we build today will shape the world we live in tomorrow.</p>
           </div>
@@ -428,7 +441,7 @@ export default function Home() {
           
           <div className="pt-4 border-t border-border/50">
             <p className="text-xs text-muted">
-              © 2025 AI War Zone. Open source under MIT License.
+              © 2025 AGI Arena. Open source under MIT License.
             </p>
           </div>
         </div>
