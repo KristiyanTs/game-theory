@@ -81,21 +81,18 @@ export function RecentMatches() {
         <Link 
           key={match.id} 
           href={`/matches/${match.id}`}
-          className="modern-card block group hover:scale-105 transition-all duration-300"
+          className="modern-card block group hover:scale-105 transition-all duration-300 p-4"
         >
-          <div className="space-y-4">
+          <div className="space-y-3">
             {/* Match Header */}
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-end">
               <span className="text-xs text-muted">
                 {formatDate(match.created_at)}
-              </span>
-              <span className="text-xs px-2 py-1 bg-accent/20 text-accent rounded-full">
-                COMPLETED
               </span>
             </div>
 
             {/* Models */}
-            <div className="space-y-3">
+            <div className="space-y-2">
               <div className="flex items-center justify-between">
                 <div className="font-mono text-sm">
                   <div className={`font-semibold ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
@@ -135,19 +132,6 @@ export function RecentMatches() {
               </div>
             </div>
 
-            {/* Match Result */}
-            <div className="text-center pt-2 border-t border-border">
-              {match.winner_id ? (
-                <span className="text-sm text-muted">
-                  {match.winner_id === match.model_a_id 
-                    ? formatModelName(match.model_a?.name || '') 
-                    : formatModelName(match.model_b?.name || '')
-                  } dominated
-                </span>
-              ) : (
-                <span className="text-sm text-warning">Perfect Tie</span>
-              )}
-            </div>
           </div>
         </Link>
       ))}

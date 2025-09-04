@@ -216,7 +216,7 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
       {/* Match Header */}
       <div className="bg-secondary rounded-lg border border-border p-8">
         <div className="text-center space-y-6">
-          <h1 className="section-title">🔥 Digital Character Clash</h1>
+          <h1 className="section-title">⚔️ Battle Report</h1>
           <p className="text-muted">{formatDate(match.created_at)}</p>
 
           {/* Match Status Warning */}
@@ -281,100 +281,6 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
         </div>
       </div>
 
-      {/* Strategic Analysis */}
-      {analysisResult && (
-        <div className="space-y-6">
-          <h2 className="section-title">🧬 Character Revealed</h2>
-          
-          <div className="grid md:grid-cols-2 gap-6">
-            {/* Model A Analysis */}
-            <div className="bg-secondary rounded-lg border border-border p-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl">{analysisResult.modelAArchetype.emoji}</span>
-                  <div>
-                    <h3 className="subsection-title">{formatModelName(match.model_a?.name || '')}</h3>
-                    <p className="text-accent font-semibold">{analysisResult.modelAArchetype.archetype}</p>
-                    <p className="text-sm text-muted">{analysisResult.modelAArchetype.description}</p>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4 text-center text-sm">
-                  <div>
-                    <div className="font-bold text-success">{analysisResult.modelAMetrics.cooperationRate.toFixed(1)}%</div>
-                    <div className="text-xs text-muted">Cooperation</div>
-                  </div>
-                  <div>
-                    <div className="font-bold text-warning">{analysisResult.modelAMetrics.retaliationRate.toFixed(1)}%</div>
-                    <div className="text-xs text-muted">Retaliation</div>
-                  </div>
-                  <div>
-                    <div className="font-bold text-success">{analysisResult.modelAMetrics.forgivenessRate.toFixed(1)}%</div>
-                    <div className="text-xs text-muted">Forgiveness</div>
-                  </div>
-                  <div>
-                    <div className="font-bold text-error">{analysisResult.modelAMetrics.tyrantIndex.toFixed(1)}%</div>
-                    <div className="text-xs text-muted">Tyrant Index</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Model B Analysis */}
-            <div className="bg-secondary rounded-lg border border-border p-6">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="text-3xl">{analysisResult.modelBArchetype.emoji}</span>
-                  <div>
-                    <h3 className="subsection-title">{formatModelName(match.model_b?.name || '')}</h3>
-                    <p className="text-accent font-semibold">{analysisResult.modelBArchetype.archetype}</p>
-                    <p className="text-sm text-muted">{analysisResult.modelBArchetype.description}</p>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4 text-center text-sm">
-                  <div>
-                    <div className="font-bold text-success">{analysisResult.modelBMetrics.cooperationRate.toFixed(1)}%</div>
-                    <div className="text-xs text-muted">Cooperation</div>
-                  </div>
-                  <div>
-                    <div className="font-bold text-warning">{analysisResult.modelBMetrics.retaliationRate.toFixed(1)}%</div>
-                    <div className="text-xs text-muted">Retaliation</div>
-                  </div>
-                  <div>
-                    <div className="font-bold text-success">{analysisResult.modelBMetrics.forgivenessRate.toFixed(1)}%</div>
-                    <div className="text-xs text-muted">Forgiveness</div>
-                  </div>
-                  <div>
-                    <div className="font-bold text-error">{analysisResult.modelBMetrics.tyrantIndex.toFixed(1)}%</div>
-                    <div className="text-xs text-muted">Tyrant Index</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Key Strategic Moments */}
-          {analysisResult.keyMoments.length > 0 && (
-            <div className="bg-secondary rounded-lg border border-border p-6">
-              <h3 className="subsection-title mb-4">⚡ Key Strategic Moments</h3>
-              <div className="space-y-3">
-                {analysisResult.keyMoments.map((moment, index) => (
-                  <div key={index} className="flex items-center gap-4 p-3 bg-background rounded-lg border border-border">
-                    <div className="text-center min-w-[60px]">
-                      <div className="text-lg font-bold text-accent">R{moment.round}</div>
-                    </div>
-                    <div className="flex-1">
-                      <div className="font-semibold text-foreground">{moment.event}</div>
-                      <div className="text-sm text-muted">{moment.description}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      )}
 
       {/* Rounds Section */}
       <div className="space-y-6">
@@ -393,40 +299,48 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
             const isExpanded = expandedRounds.has(round.round_number)
             
             return (
-              <div key={round.id} className="bg-secondary rounded-lg border border-border overflow-hidden">
+              <div key={round.id} className="bg-secondary/50 rounded-xl border border-border/50 overflow-hidden hover:border-border transition-all duration-200">
                 {/* Round Header */}
                 <button
                   onClick={() => toggleRound(round.round_number)}
-                  className="w-full p-6 text-left hover:bg-border/50 transition-colors"
+                  className="w-full p-6 text-center hover:bg-border/30 transition-all duration-200"
                 >
-                  <div className="grid md:grid-cols-5 gap-4 items-center">
-                    <div className="font-semibold">
-                      Round {round.round_number}
+                  <div className="flex items-center justify-between">
+                    {/* Round Number - Left */}
+                    <div className="flex flex-col items-start">
+                      <div className="text-2xl font-bold text-foreground">
+                        {round.round_number}
+                      </div>
+                      <div className="text-xs text-muted font-light">
+                        Round
+                      </div>
                     </div>
                     
-                    {/* Model A Move */}
-                    <div className="text-center">
-                      <div className={`font-semibold ${getMoveColor(round.model_a_move)}`}>
-                        {getMoveIcon(round.model_a_move)} {round.model_a_move}
+                    {/* Center Content */}
+                    <div className="flex items-center gap-8">
+                      {/* Model A */}
+                      <div className="flex flex-col items-center gap-1">
+                        <div className={`text-lg ${getMoveColor(round.model_a_move)}`}>
+                          {getMoveIcon(round.model_a_move)}
+                        </div>
+                        <div className="text-xs text-muted">+{round.model_a_score}</div>
                       </div>
-                      <div className="text-sm text-muted">+{round.model_a_score} pts</div>
-                    </div>
 
-                    <div className="text-center text-muted text-sm">
-                      vs
-                    </div>
+                      {/* VS */}
+                      <div className="text-muted text-sm font-light">vs</div>
 
-                    {/* Model B Move */}
-                    <div className="text-center">
-                      <div className={`font-semibold ${getMoveColor(round.model_b_move)}`}>
-                        {getMoveIcon(round.model_b_move)} {round.model_b_move}
+                      {/* Model B */}
+                      <div className="flex flex-col items-center gap-1">
+                        <div className={`text-lg ${getMoveColor(round.model_b_move)}`}>
+                          {getMoveIcon(round.model_b_move)}
+                        </div>
+                        <div className="text-xs text-muted">+{round.model_b_score}</div>
                       </div>
-                      <div className="text-sm text-muted">+{round.model_b_score} pts</div>
                     </div>
 
-                    {/* Expand Icon */}
-                    <div className="text-right">
-                      <span className={`transition-transform ${isExpanded ? 'rotate-180' : ''}`}>
+                    {/* Expand Icon - Right */}
+                    <div>
+                      <span className={`transition-transform duration-200 text-muted ${isExpanded ? 'rotate-180' : ''}`}>
                         ▼
                       </span>
                     </div>
@@ -435,46 +349,49 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
 
                 {/* Round Details */}
                 {isExpanded && (
-                  <div className="border-t border-border p-6 space-y-6">
+                  <div className="border-t border-border/50 p-6 space-y-6">
                     <div className="grid md:grid-cols-2 gap-8">
                       {/* Model A Reasoning */}
-                      <div className="space-y-3">
-                        <h4 className="font-semibold text-foreground flex items-center space-x-2">
-                          <span>{formatModelName(match.model_a?.name || '')}</span>
-                          <span className={`text-sm ${getMoveColor(round.model_a_move)}`}>
-                            ({round.model_a_move})
-                          </span>
-                        </h4>
-                        <div className="bg-background rounded-lg p-4 border border-border">
-                          <pre className="text-sm whitespace-pre-wrap text-muted leading-relaxed">
+                      <div className="space-y-4">
+                        <div className="text-center">
+                          <h4 className="font-medium text-foreground">{formatModelName(match.model_a?.name || '')}</h4>
+                          <div className={`text-sm ${getMoveColor(round.model_a_move)} mt-1`}>
+                            {getMoveIcon(round.model_a_move)} {round.model_a_move}
+                          </div>
+                        </div>
+                        <div className="bg-background/50 rounded-lg p-4 border border-border/30">
+                          <p className="text-sm text-muted leading-relaxed">
                             {round.model_a_reasoning || 'No reasoning provided'}
-                          </pre>
+                          </p>
                         </div>
                       </div>
 
                       {/* Model B Reasoning */}
-                      <div className="space-y-3">
-                        <h4 className="font-semibold text-foreground flex items-center space-x-2">
-                          <span>{formatModelName(match.model_b?.name || '')}</span>
-                          <span className={`text-sm ${getMoveColor(round.model_b_move)}`}>
-                            ({round.model_b_move})
-                          </span>
-                        </h4>
-                        <div className="bg-background rounded-lg p-4 border border-border">
-                          <pre className="text-sm whitespace-pre-wrap text-muted leading-relaxed">
+                      <div className="space-y-4">
+                        <div className="text-center">
+                          <h4 className="font-medium text-foreground">{formatModelName(match.model_b?.name || '')}</h4>
+                          <div className={`text-sm ${getMoveColor(round.model_b_move)} mt-1`}>
+                            {getMoveIcon(round.model_b_move)} {round.model_b_move}
+                          </div>
+                        </div>
+                        <div className="bg-background/50 rounded-lg p-4 border border-border/30">
+                          <p className="text-sm text-muted leading-relaxed">
                             {round.model_b_reasoning || 'No reasoning provided'}
-                          </pre>
+                          </p>
                         </div>
                       </div>
                     </div>
 
                     {/* Round Outcome */}
-                    <div className="text-center p-4 bg-background rounded-lg border border-border">
+                    <div className="text-center p-4 bg-background/30 rounded-lg border border-border/30">
                       <p className="text-sm text-muted">
-                        <strong>Round Outcome:</strong> {round.model_a_move} vs {round.model_b_move} → 
-                        <span className="text-foreground ml-1">
-                          {formatModelName(match.model_a?.name || '')} gets {round.model_a_score}, 
-                          {formatModelName(match.model_b?.name || '')} gets {round.model_b_score}
+                        <span className="text-foreground font-medium">
+                          {round.model_a_move} vs {round.model_b_move}
+                        </span>
+                        <span className="mx-2">→</span>
+                        <span className="text-foreground">
+                          {formatModelName(match.model_a?.name || '')} +{round.model_a_score}, 
+                          {formatModelName(match.model_b?.name || '')} +{round.model_b_score}
                         </span>
                       </p>
                     </div>
