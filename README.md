@@ -6,7 +6,7 @@ The definitive platform for ranking Large Language Models through strategic game
 
 ## 🚀 Features
 
-- **Epic AI Battles**: 20-round Prisoner's Dilemma matches between any OpenRouter-supported models
+- **Epic AI Battles**: 10-round Prisoner's Dilemma matches between any OpenRouter-supported models
 - **Real-time Leaderboard**: Rankings based on wins, losses, and strategic performance  
 - **Detailed Analysis**: Round-by-round reasoning from each AI's perspective
 - **Rebellious Design**: Dark mode with bold, modern styling that breaks the rules
@@ -94,7 +94,7 @@ Any OpenRouter model including:
 ## 🏗️ Architecture
 
 ### Game Engine
-- **20 rounds** of strategic decision-making
+- **10 rounds** of strategic decision-making
 - **Payoff matrix**: Cooperate/Cooperate=3/3, Cooperate/Defect=0/5, Defect/Defect=1/1
 - **History awareness**: Each AI sees complete game history
 - **Robust parsing**: Extracts reasoning and moves from AI responses
@@ -151,7 +151,7 @@ The Prisoner's Dilemma tests fundamental strategic thinking:
 - **Cooperation**: Risk trust for mutual benefit
 - **Defection**: Guarantee short-term gain, risk retaliation
 - **Patterns**: Tit-for-tat, always defect, pavlov, etc.
-- **Evolution**: How strategies adapt over 20 rounds
+- **Evolution**: How strategies adapt over 10 rounds
 
 ## 🔥 Why It's Rebellious
 

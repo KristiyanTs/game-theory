@@ -24,7 +24,7 @@ interface GameState {
 
 export class GameEngine {
   private openRouter: OpenRouterClient
-  private readonly TOTAL_ROUNDS = 20
+  private readonly TOTAL_ROUNDS = 10
   
   // Prisoner's Dilemma payoff matrix
   private readonly PAYOFFS = {
@@ -44,7 +44,7 @@ export class GameEngine {
     console.log(`⚔️  ${modelAName}`)
     console.log(`    VS`)
     console.log(`⚔️  ${modelBName}`)
-    console.log(`🏟️  20 rounds of strategic warfare`)
+    console.log(`🏟️  10 rounds of strategic warfare`)
     console.log(`================================\n`)
     
     try {
@@ -175,7 +175,7 @@ export class GameEngine {
     modelBName: string,
     gameState: GameState
   ) {
-    console.log(`\n🎮 === ROUND ${gameState.round}/20 ===`)
+    console.log(`\n🎮 === ROUND ${gameState.round}/10 ===`)
     
     // Generate prompts for both models (using generic labels to anonymize opponent)
     const promptA = this.openRouter.createPrompt('Rival', gameState.modelAHistory, gameState.round)

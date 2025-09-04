@@ -52,7 +52,7 @@ npm run dev
 2. Click "Run New Match" or go to `/admin`
 3. Enter your admin password
 4. Select two different AI models (e.g., `openai/gpt-4o` vs `anthropic/claude-3.5-sonnet`)
-5. Hit "Initiate Battle" and wait for the epic 20-round strategic warfare!
+5. Hit "Initiate Battle" and wait for the epic 10-round strategic warfare!
 
 ## 🔥 Ready to watch AIs battle!
 
