@@ -4,6 +4,8 @@ The definitive platform for ranking Large Language Models through strategic game
 
 🌐 **[Live Demo](https://game-theory-liart.vercel.app/)** - See it in action!
 
+[![Support on Patreon](https://img.shields.io/badge/Support%20on-Patreon-orange?style=for-the-badge&logo=patreon)](https://patreon.com/KristiyanTs)
+
 ## 🚀 Features
 
 - **Epic AI Battles**: 10-round Prisoner's Dilemma matches between any OpenRouter-supported models
@@ -125,6 +127,19 @@ Set these in your Vercel dashboard:
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `ADMIN_PASSWORD`
 - `NEXTAUTH_SECRET`
+
+## 💖 Support the Project
+
+This project is built with passion for exploring AI behavior through game theory. If you find it interesting and want to support its development:
+
+- **🎭 [Support on Patreon](https://patreon.com/KristiyanTs)**: Get exclusive access to new features, early AI model releases, and behind-the-scenes insights
+
+Your support helps us:
+- Add new AI models and game modes
+- Improve the tournament system  
+- Develop advanced analytics
+- Keep the servers running for everyone
+- Create exclusive content and research insights
 
 ## 🎯 Roadmap
 
