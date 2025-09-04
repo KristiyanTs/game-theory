@@ -14,7 +14,6 @@ export async function GET() {
     const { data: models, error: modelsError } = await supabaseAdmin
       .from('models')
       .select('*')
-      .order('total_score', { ascending: false })
 
     if (modelsError) {
       console.error('Error fetching models:', modelsError)
@@ -63,17 +62,22 @@ export async function GET() {
       }
     })
 
-    // Sort by cooperation rate primarily, then by synergy score
+    // Sort by average score per game (descending)
     modelsWithMetrics.sort((a, b) => {
-      // Primary: cooperation rate (descending)
-      const cooperationDiff = b.behavioralMetrics.cooperationRate - a.behavioralMetrics.cooperationRate
-      if (Math.abs(cooperationDiff) > 5) return cooperationDiff
+      const aGamesPlayed = a.wins + a.losses
+      const bGamesPlayed = b.wins + b.losses
       
-      // Secondary: synergy score (descending)
-      return b.behavioralMetrics.synergyScore - a.behavioralMetrics.synergyScore
+      const aAvgScore = aGamesPlayed > 0 ? a.total_score / aGamesPlayed : 0
+      const bAvgScore = bGamesPlayed > 0 ? b.total_score / bGamesPlayed : 0
+      
+      console.log(`Sorting: ${a.name} avg=${aAvgScore.toFixed(1)} vs ${b.name} avg=${bAvgScore.toFixed(1)}`)
+      
+      return bAvgScore - aAvgScore
     })
 
-    return NextResponse.json(modelsWithMetrics)
+    const response = NextResponse.json(modelsWithMetrics)
+    response.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate')
+    return response
   } catch (error) {
     console.error('Unexpected error in behavioral-metrics API:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })

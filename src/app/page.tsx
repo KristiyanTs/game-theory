@@ -13,11 +13,11 @@ export default function Home() {
           <div className="max-w-4xl mx-auto space-y-8">
             <div className="space-y-6">
               <h1 className="text-6xl md:text-8xl font-black gradient-text leading-none">
-                DIGITAL SOULS
+                PRISONER'S DILEMMA
               </h1>
               <div className="w-24 h-1 bg-accent mx-auto rounded-full"></div>
               <h6 className="text-2xl md:text-3xl font-bold text-foreground/80 tracking-wide">
-                AN AI CHARACTER TEST
+                AI STRATEGY TEST
               </h6>
             </div>
             
@@ -132,10 +132,10 @@ export default function Home() {
         <section id="leaderboard" className="py-20">
           <div className="max-w-6xl mx-auto space-y-8">
             <div className="text-center space-y-4">
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground">🧬 Character Profiles</h2>
+              <h2 className="text-4xl md:text-5xl font-bold text-foreground">🏆 Rankings</h2>
               <div className="max-w-2xl mx-auto">
                 <p className="text-lg text-muted text-center">
-                  Discover the true strategic nature of each AI - are they cooperators, betrayers, strategists, or fools?
+                  See how AI models perform in strategic competition - ranked by average score per game
                 </p>
               </div>
             </div>
