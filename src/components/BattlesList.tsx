@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import type { Match } from '@/lib/supabase'
+import { ModelLogoIcon } from '@/lib/model-logos'
 
 const BATTLES_PER_PAGE = 60
 
@@ -157,6 +158,7 @@ export function BattlesList() {
                       <div className="text-center">
                         <div className={`font-mono font-bold flex items-center justify-center gap-2 text-base ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
                           {match.winner_id === match.model_a_id && <span className="text-lg">🏆</span>}
+                          <ModelLogoIcon modelName={match.model_a?.name || ''} size={16} />
                           {formatModelName(match.model_a?.name || '')}
                         </div>
                         <div className={`text-xl font-black mt-1 ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
@@ -169,6 +171,7 @@ export function BattlesList() {
                       <div className="text-center">
                         <div className={`font-mono font-bold flex items-center justify-center gap-2 text-base ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>
                           {match.winner_id === match.model_b_id && <span className="text-lg">🏆</span>}
+                          <ModelLogoIcon modelName={match.model_b?.name || ''} size={16} />
                           {formatModelName(match.model_b?.name || '')}
                         </div>
                         <div className={`text-xl font-black mt-1 ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import type { Match, Round } from '@/lib/supabase'
 import { calculateBehavioralMetrics, getPersonalityArchetype } from '@/lib/behavioral-metrics'
+import { ModelLogoIcon } from '@/lib/model-logos'
 
 interface MatchDetailsProps {
   matchId: string
@@ -270,7 +271,10 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
                 </div>
               )}
               <div className="space-y-3">
-                <h3 className="text-xl font-bold text-foreground">{formatModelName(match.model_a?.name || '')}</h3>
+                <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+                  <ModelLogoIcon modelName={match.model_a?.name || ''} size={24} />
+                  {formatModelName(match.model_a?.name || '')}
+                </h3>
                 <p className="text-xs text-muted/70 font-mono truncate max-w-[200px] mx-auto">{match.model_a?.name}</p>
                 <div className={`text-5xl font-black ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
                   {match.model_a_final_score}
@@ -305,7 +309,10 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
                 </div>
               )}
               <div className="space-y-3">
-                <h3 className="text-xl font-bold text-foreground">{formatModelName(match.model_b?.name || '')}</h3>
+                <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
+                  <ModelLogoIcon modelName={match.model_b?.name || ''} size={24} />
+                  {formatModelName(match.model_b?.name || '')}
+                </h3>
                 <p className="text-xs text-muted/70 font-mono truncate max-w-[200px] mx-auto">{match.model_b?.name}</p>
                 <div className={`text-5xl font-black ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>
                   {match.model_b_final_score}
@@ -373,7 +380,8 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
                       <div className="flex items-center gap-6">
                         {/* Model A */}
                         <div className="flex flex-col items-center gap-1">
-                          <div className="text-xs text-muted/70 font-medium mb-1">
+                          <div className="text-xs text-muted/70 font-medium mb-1 flex items-center gap-1">
+                            <ModelLogoIcon modelName={match.model_a?.name || ''} size={12} />
                             {formatModelName(match.model_a?.name || '').split(' ')[0]}
                           </div>
                           <div className={`text-2xl ${getMoveColor(round.model_a_move)}`}>
@@ -387,7 +395,8 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
 
                         {/* Model B */}
                         <div className="flex flex-col items-center gap-1">
-                          <div className="text-xs text-muted/70 font-medium mb-1">
+                          <div className="text-xs text-muted/70 font-medium mb-1 flex items-center gap-1">
+                            <ModelLogoIcon modelName={match.model_b?.name || ''} size={12} />
                             {formatModelName(match.model_b?.name || '').split(' ')[0]}
                           </div>
                           <div className={`text-2xl ${getMoveColor(round.model_b_move)}`}>
@@ -414,7 +423,10 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
                           {/* Model A Reasoning */}
                           <div className="space-y-4">
                             <div className="text-center">
-                              <h4 className="font-bold text-foreground text-lg">{formatModelName(match.model_a?.name || '')}</h4>
+                              <h4 className="font-bold text-foreground text-lg flex items-center justify-center gap-2">
+                                <ModelLogoIcon modelName={match.model_a?.name || ''} size={20} />
+                                {formatModelName(match.model_a?.name || '')}
+                              </h4>
                               <div className={`text-base font-medium ${getMoveColor(round.model_a_move)} mt-2 flex items-center justify-center gap-2`}>
                                 <span className="text-xl">{getMoveIcon(round.model_a_move)}</span>
                                 {round.model_a_move}
@@ -430,7 +442,10 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
                           {/* Model B Reasoning */}
                           <div className="space-y-4">
                             <div className="text-center">
-                              <h4 className="font-bold text-foreground text-lg">{formatModelName(match.model_b?.name || '')}</h4>
+                              <h4 className="font-bold text-foreground text-lg flex items-center justify-center gap-2">
+                                <ModelLogoIcon modelName={match.model_b?.name || ''} size={20} />
+                                {formatModelName(match.model_b?.name || '')}
+                              </h4>
                               <div className={`text-base font-medium ${getMoveColor(round.model_b_move)} mt-2 flex items-center justify-center gap-2`}>
                                 <span className="text-xl">{getMoveIcon(round.model_b_move)}</span>
                                 {round.model_b_move}

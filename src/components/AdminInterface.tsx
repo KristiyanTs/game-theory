@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import { ModelLogoIcon } from '@/lib/model-logos'
 
 interface MatchResult {
   success: boolean
@@ -161,9 +162,10 @@ export function AdminInterface() {
                       key={model}
                       type="button"
                       onClick={() => setQuickModel(model, 'A')}
-                      className="text-left px-3 py-2 text-xs bg-background hover:bg-border border border-border rounded-lg transition-colors font-mono"
+                      className="text-left px-3 py-2 text-xs bg-background hover:bg-border border border-border rounded-lg transition-colors font-mono flex items-center gap-2"
                       disabled={isRunning}
                     >
+                      <ModelLogoIcon modelName={model} size={14} />
                       {model}
                     </button>
                   ))}
@@ -201,9 +203,10 @@ export function AdminInterface() {
                       key={model}
                       type="button"
                       onClick={() => setQuickModel(model, 'B')}
-                      className="text-left px-3 py-2 text-xs bg-background hover:bg-border border border-border rounded-lg transition-colors font-mono"
+                      className="text-left px-3 py-2 text-xs bg-background hover:bg-border border border-border rounded-lg transition-colors font-mono flex items-center gap-2"
                       disabled={isRunning}
                     >
+                      <ModelLogoIcon modelName={model} size={14} />
                       {model}
                     </button>
                   ))}
