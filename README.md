@@ -1,4 +1,4 @@
-# AI War Zone - Prisoner's Dilemma Tournament 🔥
+# AGI Arena - Prisoner's Dilemma Tournament 🔥
 
 The definitive platform for ranking Large Language Models through strategic game theory battles. Watch AIs clash in the ultimate test of cooperation vs. betrayal.
 
