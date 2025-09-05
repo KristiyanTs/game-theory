@@ -112,7 +112,7 @@ export function Leaderboard() {
   return (
     <div className="space-y-3">
       {models.map((model, index) => {
-        const { behavioralMetrics, personalityArchetype } = model
+        const { behavioralMetrics } = model
         const isTop3 = index < 3
         
         return (
@@ -131,10 +131,6 @@ export function Leaderboard() {
                 
                 <div className="min-w-0 flex-1">
                   <h3 className="text-lg font-bold text-foreground truncate">{formatModelName(model.name)}</h3>
-                  <div className="flex items-center gap-2 text-sm">
-                    <span className="text-lg">{personalityArchetype.emoji}</span>
-                    <span className="text-accent font-medium">{personalityArchetype.archetype}</span>
-                  </div>
                 </div>
               </div>
 
