@@ -259,109 +259,60 @@ export default function Home() {
         </section>
 
         {/* Why This Matters Section */}
-        <section className="py-20 border-y border-border">
-          <div className="max-w-6xl mx-auto space-y-12">
-            <div className="text-center space-y-4">
+        <section className="py-24 border-y border-border">
+          <div className="max-w-6xl mx-auto space-y-16">
+            <div className="text-center space-y-6">
               <h2 className="text-4xl md:text-5xl font-bold text-foreground">🌍 Why This Matters</h2>
               <p className="text-2xl md:text-3xl font-bold text-accent">From Game Theory to Global Impact</p>
               <div className="max-w-4xl mx-auto">
                 <p className="text-lg text-muted leading-relaxed">
-                  This isn't just an academic exercise; it's a glimpse into our future. As AI models become autonomous agents in our economy, infrastructure, and even defense systems, their inherent strategic biases—cooperative or selfish—will have <span className="text-accent font-semibold">monumental consequences</span>. This project serves as a crucial early-warning system.
+                  This shows what AI might do in the real world. As AI takes on bigger roles in our society, knowing if they help others or just help themselves matters a lot. This test gives us early warning about their behavior.
                 </p>
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-12">
-              {/* For Society & AI Safety */}
-              <div className="space-y-6">
-                <div className="text-center space-y-3">
-                  <h3 className="text-2xl font-bold text-foreground flex items-center justify-center gap-3">
-                    <span className="text-3xl">🛡️</span>
-                    Society & AI Safety
-                  </h3>
-                </div>
-
-                <div className="space-y-6">
-                  <div className="modern-card">
-                    <h4 className="font-bold text-accent mb-3">🚦 Autonomous Negotiations</h4>
-                    <p className="text-sm text-muted leading-relaxed">
-                      Imagine two self-driving cars from different manufacturers approaching an intersection, or AI-powered grid systems managing a continent's power supply. We need them to be reliably cooperative, not ruthlessly opportunistic. <span className="text-foreground font-semibold">We test for that default behavior here.</span>
-                    </p>
-                  </div>
-
-                  <div className="modern-card">
-                    <h4 className="font-bold text-accent mb-3">🤝 Predicting AI Alliances</h4>
-                    <p className="text-sm text-muted leading-relaxed">
-                      In a future where multiple AIs from different corporations or nations interact, understanding their propensity to form stable, mutually beneficial alliances versus engaging in zero-sum competition is <span className="text-foreground font-semibold">paramount for global stability.</span>
-                    </p>
-                  </div>
-
-                  <div className="modern-card">
-                    <h4 className="font-bold text-accent mb-3">⚖️ Algorithmic Governance</h4>
-                    <p className="text-sm text-muted leading-relaxed">
-                      As we deploy AI to manage complex systems like financial markets or resource allocation, knowing a model's 'Tyrant Index' or 'Synergy Score' is <span className="text-foreground font-semibold">critical for preventing catastrophic, self-serving decisions.</span>
-                    </p>
-                  </div>
-                </div>
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* For Society */}
+              <div className="modern-card space-y-4">
+                <h3 className="text-xl font-bold text-foreground flex items-center gap-3">
+                  <span className="text-2xl">🛡️</span>
+                  Society & Safety
+                </h3>
+                <p className="text-muted leading-relaxed">
+                  AI will soon control cars, power grids, and other systems. We need to know if they'll work together or compete selfishly. This test shows us their natural behavior.
+                </p>
               </div>
 
-              {/* For Businesses & Developers */}
-              <div className="space-y-6">
-                <div className="text-center space-y-3">
-                  <h3 className="text-2xl font-bold text-foreground flex items-center justify-center gap-3">
-                    <span className="text-3xl">🏢</span>
-                    Businesses & Developers
-                  </h3>
-                </div>
-
-                <div className="space-y-6">
-                  <div className="modern-card">
-                    <h4 className="font-bold text-accent mb-3">🤖 Multi-Agent Systems</h4>
-                    <p className="text-sm text-muted leading-relaxed">
-                      When building teams of AI agents for logistics, trading, or complex problem-solving, you need to know if you're deploying a team of backstabbing "Ruthless" agents or cooperative "Diplomats." <span className="text-foreground font-semibold">Our character profiles provide this insight.</span>
-                    </p>
-                  </div>
-
-                  <div className="modern-card">
-                    <h4 className="font-bold text-accent mb-3">💼 Model Selection for Negotiation</h4>
-                    <p className="text-sm text-muted leading-relaxed">
-                      For applications like automated contract negotiation or customer service, a model's "Forgiveness Rate" and "Retaliation Rate" are as important as its language fluency. <span className="text-foreground font-semibold">This data helps developers choose the right tool for the job.</span>
-                    </p>
-                  </div>
-
-                  <div className="modern-card">
-                    <h4 className="font-bold text-accent mb-3">📊 A New Dimension of Benchmarking</h4>
-                    <p className="text-sm text-muted leading-relaxed">
-                      Beyond speed and accuracy, we provide the crucial third dimension: <span className="text-accent font-semibold">strategic temperament</span>. This allows for a more holistic understanding of an AI's capabilities and risks before integrating it into a product.
-                    </p>
-                  </div>
-                </div>
+              {/* For Businesses */}
+              <div className="modern-card space-y-4">
+                <h3 className="text-xl font-bold text-foreground flex items-center gap-3">
+                  <span className="text-2xl">🏢</span>
+                  Business & Development
+                </h3>
+                <p className="text-muted leading-relaxed">
+                  When building AI teams or choosing models for important tasks, you need to know their personality. Are they helpful team players or selfish competitors?
+                </p>
               </div>
             </div>
 
             {/* Call to Action */}
-            <div className="text-center bg-secondary/30 rounded-lg border border-border p-8">
-              <h3 className="text-2xl font-bold text-foreground mb-4">The Stakes Are Real</h3>
-              <div className="text-lg text-muted mb-6 max-w-3xl mx-auto text-center leading-relaxed">
-                <p className="mb-4">
-                  The AI models we're profiling today will become the autonomous agents of tomorrow.
-                </p>
-                <p>
-                  Their strategic character—revealed through the Prisoner's Dilemma—will determine whether they build <span className="text-accent font-semibold">cooperative societies</span> or <span className="text-accent font-semibold">competitive battlegrounds</span>.
-                </p>
-              </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a 
-                  href="/admin" 
-                  className="px-8 py-3 bg-accent hover:bg-accent-hover text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105"
+            <div className="text-center bg-secondary/30 rounded-lg border border-border p-6">
+              <h3 className="text-xl font-bold text-foreground mb-3">Ready to Learn More?</h3>
+              <p className="text-muted mb-4">
+                See how AI behaves in strategic situations and what it tells us about their character.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <a
+                  href="/admin"
+                  className="px-6 py-2 bg-accent hover:bg-accent-hover text-white font-bold rounded-xl transition-all duration-300 transform hover:scale-105"
                 >
-                  Run Your Own Analysis
+                  Try It Yourself
                 </a>
-                <a 
-                  href="#leaderboard" 
-                  className="px-8 py-3 border-2 border-accent hover:bg-accent/10 text-accent font-semibold rounded-xl transition-all duration-300"
+                <a
+                  href="#leaderboard"
+                  className="px-6 py-2 border-2 border-accent hover:bg-accent/10 text-accent font-semibold rounded-xl transition-all duration-300"
                 >
-                  Explore Character Data
+                  View Results
                 </a>
               </div>
             </div>

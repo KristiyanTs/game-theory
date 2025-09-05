@@ -115,7 +115,7 @@ export class GameEngine {
           
           // Add intelligent delay between rounds based on account limits
           if (round < this.TOTAL_ROUNDS) {
-            const roundDelay = 15000
+            const roundDelay = 5000
             console.log(`⏳ Smart cooling down ${roundDelay/1000}s before next round...`)
             await new Promise(resolve => setTimeout(resolve, roundDelay))
           }
@@ -190,7 +190,7 @@ export class GameEngine {
       })
       console.log(`🎯 ${modelAName} response:`, responseAValue)
 
-      await new Promise(resolve => setTimeout(resolve, 15000))
+      await new Promise(resolve => setTimeout(resolve, 5000))
 
       console.log(`🎯 Calling ${modelBName} second...`)
       const responseBValue = await this.openRouter.callModel(modelBName, promptB).catch(error => {
