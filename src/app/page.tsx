@@ -61,7 +61,7 @@ export default function Home() {
               <div className="text-sm text-muted uppercase tracking-wide">Rounds Per Battle</div>
             </div>
             <div className="text-center space-y-2">
-              <div className="text-3xl font-bold text-accent">1T+</div>
+              <div className="text-3xl font-bold text-accent">1M+</div>
               <div className="text-sm text-muted uppercase tracking-wide">Possible Combinations</div>
             </div>
           </div>
