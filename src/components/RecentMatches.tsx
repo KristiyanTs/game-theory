@@ -15,12 +15,12 @@ export function RecentMatches() {
 
   const fetchMatches = async () => {
     try {
-      const response = await fetch('/api/matches')
+      const response = await fetch('/api/matches?limit=20')
       if (!response.ok) {
         throw new Error('Failed to fetch matches')
       }
       const data = await response.json()
-      setMatches(data)
+      setMatches(data.matches || data) // Handle both old and new API response formats
     } catch (err) {
       console.error('Error fetching matches:', err)
       setError('Unable to load recent matches')
@@ -36,12 +36,17 @@ export function RecentMatches() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    })
+    const now = new Date()
+    const diffInHours = Math.floor((now.getTime() - date.getTime()) / (1000 * 60 * 60))
+
+    if (diffInHours < 24) {
+      return `${diffInHours}h ago`
+    } else {
+      return date.toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric'
+      })
+    }
   }
 
   if (loading) {
@@ -76,65 +81,62 @@ export function RecentMatches() {
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-      {matches.map((match) => (
-        <Link 
-          key={match.id} 
-          href={`/matches/${match.id}`}
-          className="modern-card block group hover:scale-105 transition-all duration-300 p-4"
-        >
-          <div className="space-y-3">
-            {/* Match Header */}
-            <div className="flex items-center justify-end">
-              <span className="text-xs text-muted">
+    <div className="space-y-4">
+      <div className="space-y-2 max-w-2xl mx-auto">
+        {matches.slice(0, 10).map((match) => (
+          <Link
+            key={match.id}
+            href={`/matches/${match.id}`}
+            className="block group hover:bg-secondary/50 transition-colors duration-200 py-3 px-4 rounded-lg mx-auto max-w-lg"
+          >
+            <div className="flex items-center justify-between text-sm">
+              {/* Date */}
+              <div className="text-muted w-20 flex-shrink-0">
                 {formatDate(match.created_at)}
-              </span>
-            </div>
+              </div>
 
-            {/* Models */}
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <div className="font-mono text-sm">
-                  <div className={`font-semibold ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
+              {/* Models */}
+              <div className="flex items-center space-x-6 flex-1 justify-center">
+                <div className="text-center">
+                  <div className={`font-mono font-semibold flex items-center justify-center gap-1 ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
+                    {match.winner_id === match.model_a_id && <span>🏆</span>}
                     {formatModelName(match.model_a?.name || '')}
                   </div>
-                  <div className="text-xs text-muted truncate max-w-[120px]">
-                    {match.model_a?.name}
-                  </div>
-                </div>
-                <div className="text-right">
                   <div className={`text-lg font-bold ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
                     {match.model_a_final_score}
                   </div>
-                  {match.winner_id === match.model_a_id && <span className="text-xs text-success">WINNER</span>}
                 </div>
-              </div>
 
-              <div className="flex items-center justify-center">
-                <span className="text-accent font-bold">VS</span>
-              </div>
+                <div className="text-accent font-bold text-xs">VS</div>
 
-              <div className="flex items-center justify-between">
-                <div className="font-mono text-sm">
-                  <div className={`font-semibold ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>
+                <div className="text-center">
+                  <div className={`font-mono font-semibold flex items-center justify-center gap-1 ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>
+                    {match.winner_id === match.model_b_id && <span>🏆</span>}
                     {formatModelName(match.model_b?.name || '')}
                   </div>
-                  <div className="text-xs text-muted truncate max-w-[120px]">
-                    {match.model_b?.name}
-                  </div>
-                </div>
-                <div className="text-right">
                   <div className={`text-lg font-bold ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>
                     {match.model_b_final_score}
                   </div>
-                  {match.winner_id === match.model_b_id && <span className="text-xs text-success">WINNER</span>}
                 </div>
               </div>
             </div>
+          </Link>
+        ))}
+      </div>
 
-          </div>
-        </Link>
-      ))}
+      {matches.length > 10 && (
+        <div className="text-center pt-4">
+          <Link
+            href="/battles"
+            className="inline-flex items-center px-4 py-2 text-accent hover:text-accent-hover text-sm font-medium rounded-md transition-colors duration-200 hover:bg-accent/5"
+          >
+            Show More Battles
+            <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </Link>
+        </div>
+      )}
     </div>
   )
 }
