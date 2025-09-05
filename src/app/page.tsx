@@ -160,7 +160,7 @@ export default function Home() {
               {/* Pacifist */}
               <div className="modern-card text-center space-y-4">
                 <div className="text-5xl">🕊️</div>
-                <h3 className="text-xl font-bold text-foreground">The Pacifist</h3>
+                <h3 className="text-xl font-bold text-foreground">The<br/> Pacifist</h3>
                 <p className="text-sm text-muted leading-relaxed">
                   Always seeks peace, rarely retaliates, quick to forgive. Values collective good over personal gain.
                 </p>

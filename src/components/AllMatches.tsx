@@ -15,12 +15,12 @@ export function AllMatches() {
 
   const fetchMatches = async () => {
     try {
-      const response = await fetch('/api/matches')
+      const response = await fetch('/api/matches?limit=100')
       if (!response.ok) {
         throw new Error('Failed to fetch matches')
       }
       const data = await response.json()
-      setMatches(data)
+      setMatches(data.matches || data) // Handle both old and new API response formats
     } catch (err) {
       console.error('Error fetching matches:', err)
       setError('Unable to load matches')
