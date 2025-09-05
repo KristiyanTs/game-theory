@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import type { Model } from '@/lib/supabase'
 import type { BehavioralMetrics } from '@/lib/behavioral-metrics'
+import { ModelLogoIcon } from '@/lib/model-logos'
 
 interface ModelWithMetrics extends Model {
   behavioralMetrics: BehavioralMetrics
@@ -121,16 +122,21 @@ export function Leaderboard() {
               {/* Left: Rank & Model Info */}
               <div className="flex items-center gap-4 min-w-0 flex-1">
                 <div className="flex items-center gap-2">
+                  <span className="text-xl w-6 text-center">
+                    {index === 0 && '👑'}
+                    {index === 1 && '🥈'}
+                    {index === 2 && '🥉'}
+                  </span>
                   <span className={`text-xl font-bold ${isTop3 ? 'text-accent' : 'text-foreground'}`}>
                     #{index + 1}
                   </span>
-                  {index === 0 && <span className="text-xl">👑</span>}
-                  {index === 1 && <span className="text-xl">🥈</span>}
-                  {index === 2 && <span className="text-xl">🥉</span>}
                 </div>
                 
                 <div className="min-w-0 flex-1">
-                  <h3 className="text-lg font-bold text-foreground truncate">{formatModelName(model.name)}</h3>
+                  <h3 className="text-lg font-bold text-foreground truncate flex items-center gap-2">
+                    <ModelLogoIcon modelName={model.name} size={20} />
+                    {formatModelName(model.name)}
+                  </h3>
                 </div>
               </div>
 
