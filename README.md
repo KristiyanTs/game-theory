@@ -133,6 +133,7 @@ Set these in your Vercel dashboard:
 This project is built with passion for exploring AI behavior through game theory. If you find it interesting and want to support its development:
 
 - **🎭 [Support on Patreon](https://patreon.com/KristiyanTs)**: Get exclusive access to new features, early AI model releases, and behind-the-scenes insights
+- **📄 [View My CV](https://github.com/KristiyanTs/game-theory/blob/main/CV.md)**: Learn more about the creator and their background
 
 Your support helps us:
 - Add new AI models and game modes
