@@ -49,11 +49,11 @@ body {
 
 /* Modern button styles */
 .btn-primary {
-  @apply px-8 py-3 bg-accent hover:bg-accent-hover text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-accent/25;
+  @apply px-8 py-3 bg-accent hover:bg-accent-hover text-white font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg;
 }
 
 .btn-secondary {
-  @apply px-8 py-3 border-2 border-border hover:border-accent text-foreground font-semibold rounded-xl transition-all duration-300 hover:bg-accent/5;
+  @apply px-8 py-3 border-2 border-border hover:border-accent text-foreground font-semibold rounded-xl transition-all duration-300;
 }
 
 /* Subtle animations */
@@ -74,7 +74,7 @@ body {
 
 /* Modern card styles */
 .modern-card {
-  @apply bg-secondary/50 backdrop-blur-sm border border-border/50 rounded-xl p-6 transition-all duration-300 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10;
+  @apply bg-secondary backdrop-blur-sm border border-border rounded-xl p-6 transition-all duration-300 hover:border-accent hover:shadow-lg;
 }
 
 .card-hover {
