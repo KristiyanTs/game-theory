@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   /* Dark mode by default - rebellious and bold */
@@ -12,22 +14,9 @@
   --success: #00ff88;
   --warning: #ffaa00;
   --error: #ff4444;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-  --color-secondary: var(--secondary);
-  --color-border: var(--border);
-  --color-muted: var(--muted);
-  --color-success: var(--success);
-  --color-warning: var(--warning);
-  --color-error: var(--error);
-  --font-heading: var(--font-orbitron);
-  --font-body: var(--font-inter);
-  --font-mono: var(--font-jetbrains-mono);
+  --font-heading: 'Orbitron', monospace;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
 }
 
 body {
