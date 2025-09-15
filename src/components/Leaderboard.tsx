@@ -151,19 +151,31 @@ export function Leaderboard() {
                 <div className="text-xs text-muted">Avg Score ({model.wins + model.losses} games)</div>
               </div>
 
+              {/* Wins/Losses */}
+              <div className="min-w-0">
+                <div className="flex justify-between items-center text-sm gap-2.5">
+                  <span className="text-muted">Wins</span>
+                  <span className="font-bold text-foreground">{model.wins}</span>
+                </div>
+                <div className="flex justify-between items-center text-sm gap-2.5">
+                  <span className="text-muted">Losses</span>
+                  <span className="font-bold text-foreground">{model.losses}</span>
+                </div>
+              </div>
+
               {/* Right: Key Metrics */}
-              <div className="grid grid-cols-3 gap-4 min-w-0">
-                <div className="text-center">
-                  <div className="text-sm font-bold text-success">{behavioralMetrics.cooperationRate.toFixed(0)}%</div>
-                  <div className="text-xs text-muted">Cooperation</div>
+              <div className="min-w-0">
+                <div className="flex justify-between items-center text-sm gap-2.5">
+                  <span className="text-muted">Cooperation</span>
+                  <span className="font-bold text-success">{behavioralMetrics.cooperationRate.toFixed(0)}%</span>
                 </div>
-                <div className="text-center">
-                  <div className="text-sm font-bold text-warning">{behavioralMetrics.retaliationRate.toFixed(0)}%</div>
-                  <div className="text-xs text-muted">Retaliation</div>
+                <div className="flex justify-between items-center text-sm gap-2.5">
+                  <span className="text-muted">Retaliation</span>
+                  <span className="font-bold text-warning">{behavioralMetrics.retaliationRate.toFixed(0)}%</span>
                 </div>
-                <div className="text-center">
-                  <div className="text-sm font-bold text-error">{behavioralMetrics.tyrantIndex.toFixed(0)}%</div>
-                  <div className="text-xs text-muted">Tyrant Index</div>
+                <div className="flex justify-between items-center text-sm gap-2.5">
+                  <span className="text-muted">Tyrant Index</span>
+                  <span className="font-bold text-error">{behavioralMetrics.tyrantIndex.toFixed(0)}%</span>
                 </div>
               </div>
             </div>

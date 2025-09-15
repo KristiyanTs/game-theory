@@ -207,44 +207,41 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
   return (
     <div className="min-h-screen">
       {/* Header */}
-      <div className="text-center space-y-8 py-8">
-        <div className="space-y-4">
-          <h1 className="text-6xl md:text-7xl font-black gradient-text leading-none">
-            ⚔️ BATTLE REPORT
-          </h1>
-          <div className="w-20 h-1 bg-accent mx-auto rounded-full"></div>
-        </div>
-        <div className="text-sm text-muted/80 font-mono">
+      <div className="text-center space-y-2 py-4">
+        <h1 className="text-xl font-semibold text-foreground">
+          Battle Details
+        </h1>
+        <div className="text-sm text-muted">
           {formatDate(match.created_at)}
         </div>
       </div>
 
       {/* Back Button */}
-      <div className="flex justify-center mb-8">
+      <div className="flex justify-start mb-6">
         <Link
-          href="/"
-          className="inline-flex items-center px-4 py-2 text-muted hover:text-accent transition-all duration-200 hover:bg-accent/5 rounded-lg"
+          href="/matches"
+          className="inline-flex items-center text-sm text-muted hover:text-foreground transition-colors"
         >
-          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          Back to Home
+          Back to Matches
         </Link>
       </div>
 
       {/* Match Status Warning */}
       {(match.status === 'aborted' || match.status === 'failed') && (
-        <div className="max-w-2xl mx-auto mb-8">
-          <div className="bg-gradient-to-r from-error/20 to-error/10 border border-error/30 rounded-xl p-6">
-            <div className="flex items-center gap-4">
-              <div className="text-3xl">⚠️</div>
+        <div className="mb-6">
+          <div className="bg-error/10 border border-error/30 rounded-lg p-4">
+            <div className="flex items-center gap-3">
+              <div className="text-lg">⚠️</div>
               <div>
-                <h3 className="font-bold text-error text-lg">
+                <h3 className="font-semibold text-error">
                   {match.status === 'aborted' ? 'Match Aborted' : 'Match Failed'}
                 </h3>
                 <p className="text-sm text-muted mt-1">
                   {match.status === 'aborted'
-                    ? 'This match was aborted due to consecutive API failures. Models may have been unavailable.'
+                    ? 'This match was aborted due to consecutive API failures.'
                     : 'This match failed to complete due to technical issues.'}
                 </p>
               </div>
@@ -254,71 +251,53 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
       )}
 
       {/* Models Face-off */}
-      <div className="max-w-4xl mx-auto mb-12">
-        <div className="bg-gradient-to-br from-secondary/30 to-secondary/10 rounded-2xl border border-border/50 p-8 backdrop-blur-sm">
-          <div className="grid md:grid-cols-3 gap-8 items-center">
+      <div className="mb-8">
+        <div className="bg-secondary/20 rounded-lg border border-border/30 p-6">
+          <div className="grid md:grid-cols-3 gap-6 items-center">
             {/* Model A */}
-            <div className={`relative text-center p-6 rounded-xl border transition-all duration-300 ${
+            <div className={`text-center p-4 rounded-lg border ${
               match.winner_id === match.model_a_id
-                ? 'border-success/50 bg-success/10 shadow-lg shadow-success/10'
-                : 'border-border/50 bg-secondary/50'
+                ? 'border-success/50 bg-success/5'
+                : 'border-border/30 bg-background/50'
             }`}>
-              {match.winner_id === match.model_a_id && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-success text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                    🏆 WINNER
-                  </div>
-                </div>
-              )}
-              <div className="space-y-3">
-                <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-                  <ModelLogoIcon modelName={match.model_a?.name || ''} size={24} />
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold text-foreground flex items-center justify-center gap-2">
+                  <ModelLogoIcon modelName={match.model_a?.name || ''} size={20} />
                   {formatModelName(match.model_a?.name || '')}
                 </h3>
-                <p className="text-xs text-muted/70 font-mono truncate max-w-[200px] mx-auto">{match.model_a?.name}</p>
-                <div className={`text-5xl font-black ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
+                <div className={`text-3xl font-bold ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
                   {match.model_a_final_score}
                 </div>
                 {match.status === 'aborted' && (
-                  <div className="text-warning text-sm font-medium">Partial Score</div>
+                  <div className="text-warning text-xs">Partial</div>
                 )}
               </div>
             </div>
 
             {/* VS */}
             <div className="text-center">
-              <div className="text-6xl font-black text-accent/80">VS</div>
+              <div className="text-2xl font-bold text-muted">vs</div>
               {match.status === 'aborted' && (
-                <div className="text-warning text-sm font-medium mt-2 px-3 py-1 bg-warning/10 rounded-full inline-block">
-                  INCOMPLETE
-                </div>
+                <div className="text-warning text-xs mt-1">Incomplete</div>
               )}
             </div>
 
             {/* Model B */}
-            <div className={`relative text-center p-6 rounded-xl border transition-all duration-300 ${
+            <div className={`text-center p-4 rounded-lg border ${
               match.winner_id === match.model_b_id
-                ? 'border-success/50 bg-success/10 shadow-lg shadow-success/10'
-                : 'border-border/50 bg-secondary/50'
+                ? 'border-success/50 bg-success/5'
+                : 'border-border/30 bg-background/50'
             }`}>
-              {match.winner_id === match.model_b_id && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <div className="bg-success text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-                    🏆 WINNER
-                  </div>
-                </div>
-              )}
-              <div className="space-y-3">
-                <h3 className="text-xl font-bold text-foreground flex items-center gap-2">
-                  <ModelLogoIcon modelName={match.model_b?.name || ''} size={24} />
+              <div className="space-y-2">
+                <h3 className="text-lg font-semibold text-foreground flex items-center justify-center gap-2">
+                  <ModelLogoIcon modelName={match.model_b?.name || ''} size={20} />
                   {formatModelName(match.model_b?.name || '')}
                 </h3>
-                <p className="text-xs text-muted/70 font-mono truncate max-w-[200px] mx-auto">{match.model_b?.name}</p>
-                <div className={`text-5xl font-black ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>
+                <div className={`text-3xl font-bold ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>
                   {match.model_b_final_score}
                 </div>
                 {match.status === 'aborted' && (
-                  <div className="text-warning text-sm font-medium">Partial Score</div>
+                  <div className="text-warning text-xs">Partial</div>
                 )}
               </div>
             </div>
@@ -328,87 +307,80 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
 
 
       {/* Rounds Section */}
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-8">
-          <h2 className="text-4xl md:text-5xl font-black gradient-text mb-4">
-            ROUND-BY-ROUND ANALYSIS
+      <div>
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-xl font-semibold text-foreground">
+            Rounds ({rounds.length})
           </h2>
-          <div className="w-16 h-1 bg-accent mx-auto rounded-full mb-6"></div>
-        </div>
-
-        <div className="flex justify-center mb-8">
           <button
             onClick={() => setExpandedRounds(expandedRounds.size === rounds.length ? new Set() : new Set(rounds.map(r => r.round_number)))}
-            className="inline-flex items-center px-6 py-3 bg-accent hover:bg-accent-hover text-white font-semibold rounded-xl transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-accent/25"
+            className="text-sm text-muted hover:text-foreground transition-colors"
           >
             {expandedRounds.size === rounds.length ? 'Collapse All' : 'Expand All'}
-            <svg className={`w-4 h-4 ml-2 transition-transform duration-200 ${expandedRounds.size === rounds.length ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-            </svg>
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-2">
           {rounds.map((round) => {
             const isExpanded = expandedRounds.has(round.round_number)
 
             return (
               <div key={round.id} className="group">
-                <div className="bg-gradient-to-r from-secondary/30 to-secondary/10 hover:from-secondary/50 hover:to-secondary/20 rounded-xl border border-border/50 overflow-hidden transition-all duration-300 hover:border-accent/30 hover:shadow-lg">
+                <div className="bg-secondary/10 hover:bg-secondary/20 rounded-lg border border-border/30 overflow-hidden transition-all duration-200 hover:border-border/50">
                   {/* Round Header */}
                   <button
                     onClick={() => toggleRound(round.round_number)}
-                    className="w-full p-6 hover:bg-accent/5 transition-all duration-200"
+                    className="w-full p-4 hover:bg-accent/5 transition-all duration-200"
                   >
                     <div className="flex items-center justify-between">
                       {/* Round Number - Left */}
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center">
-                          <span className="text-lg font-black text-accent">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-accent/10 rounded-full flex items-center justify-center">
+                          <span className="text-sm font-semibold text-accent">
                             {round.round_number}
                           </span>
                         </div>
                         <div className="text-left">
                           <div className="text-sm font-medium text-foreground">Round {round.round_number}</div>
-                          <div className="text-xs text-muted/70">
+                          <div className="text-xs text-muted">
                             {formatModelName(match.model_a?.name || '')} +{round.model_a_score} • {formatModelName(match.model_b?.name || '')} +{round.model_b_score}
                           </div>
                         </div>
                       </div>
 
                       {/* Center Content */}
-                      <div className="flex items-center gap-6">
+                      <div className="flex items-center gap-4">
                         {/* Model A */}
                         <div className="flex flex-col items-center gap-1">
-                          <div className="text-xs text-muted/70 font-medium mb-1 flex items-center gap-1">
+                          <div className="text-xs text-muted font-medium flex items-center gap-1">
                             <ModelLogoIcon modelName={match.model_a?.name || ''} size={12} />
                             {formatModelName(match.model_a?.name || '').split(' ')[0]}
                           </div>
-                          <div className={`text-2xl ${getMoveColor(round.model_a_move)}`}>
+                          <div className={`text-lg ${getMoveColor(round.model_a_move)}`}>
                             {getMoveIcon(round.model_a_move)}
                           </div>
-                          <div className="text-xs text-muted font-mono">+{round.model_a_score}</div>
+                          <div className="text-xs text-muted">+{round.model_a_score}</div>
                         </div>
 
                         {/* VS */}
-                        <div className="text-accent/60 font-bold text-sm">VS</div>
+                        <div className="text-muted/60 font-medium text-sm">vs</div>
 
                         {/* Model B */}
                         <div className="flex flex-col items-center gap-1">
-                          <div className="text-xs text-muted/70 font-medium mb-1 flex items-center gap-1">
+                          <div className="text-xs text-muted font-medium flex items-center gap-1">
                             <ModelLogoIcon modelName={match.model_b?.name || ''} size={12} />
                             {formatModelName(match.model_b?.name || '').split(' ')[0]}
                           </div>
-                          <div className={`text-2xl ${getMoveColor(round.model_b_move)}`}>
+                          <div className={`text-lg ${getMoveColor(round.model_b_move)}`}>
                             {getMoveIcon(round.model_b_move)}
                           </div>
-                          <div className="text-xs text-muted font-mono">+{round.model_b_score}</div>
+                          <div className="text-xs text-muted">+{round.model_b_score}</div>
                         </div>
                       </div>
 
                       {/* Expand Icon - Right */}
-                      <div className="w-8 flex justify-center">
-                        <svg className={`w-5 h-5 text-muted/70 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="w-6 flex justify-center">
+                        <svg className={`w-4 h-4 text-muted transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                         </svg>
                       </div>
@@ -417,22 +389,22 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
 
                   {/* Round Details */}
                   {isExpanded && (
-                    <div className="border-t border-border/30 bg-background/30">
-                      <div className="p-8 space-y-8">
-                        <div className="grid md:grid-cols-2 gap-8">
+                    <div className="border-t border-border/30 bg-background/50">
+                      <div className="p-6 space-y-6">
+                        <div className="grid md:grid-cols-2 gap-6">
                           {/* Model A Reasoning */}
-                          <div className="space-y-4">
+                          <div className="space-y-3">
                             <div className="text-center">
-                              <h4 className="font-bold text-foreground text-lg flex items-center justify-center gap-2">
-                                <ModelLogoIcon modelName={match.model_a?.name || ''} size={20} />
+                              <h4 className="font-semibold text-foreground flex items-center justify-center gap-2">
+                                <ModelLogoIcon modelName={match.model_a?.name || ''} size={16} />
                                 {formatModelName(match.model_a?.name || '')}
                               </h4>
-                              <div className={`text-base font-medium ${getMoveColor(round.model_a_move)} mt-2 flex items-center justify-center gap-2`}>
-                                <span className="text-xl">{getMoveIcon(round.model_a_move)}</span>
+                              <div className={`text-sm font-medium ${getMoveColor(round.model_a_move)} mt-1 flex items-center justify-center gap-1`}>
+                                <span className="text-base">{getMoveIcon(round.model_a_move)}</span>
                                 {round.model_a_move}
                               </div>
                             </div>
-                            <div className="bg-gradient-to-br from-background to-secondary/20 rounded-xl p-6 border border-border/30 shadow-inner">
+                            <div className="bg-background/50 rounded-lg p-4 border border-border/20">
                               <p className="text-sm text-muted leading-relaxed">
                                 {round.model_a_reasoning || 'No reasoning provided'}
                               </p>
@@ -440,18 +412,18 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
                           </div>
 
                           {/* Model B Reasoning */}
-                          <div className="space-y-4">
+                          <div className="space-y-3">
                             <div className="text-center">
-                              <h4 className="font-bold text-foreground text-lg flex items-center justify-center gap-2">
-                                <ModelLogoIcon modelName={match.model_b?.name || ''} size={20} />
+                              <h4 className="font-semibold text-foreground flex items-center justify-center gap-2">
+                                <ModelLogoIcon modelName={match.model_b?.name || ''} size={16} />
                                 {formatModelName(match.model_b?.name || '')}
                               </h4>
-                              <div className={`text-base font-medium ${getMoveColor(round.model_b_move)} mt-2 flex items-center justify-center gap-2`}>
-                                <span className="text-xl">{getMoveIcon(round.model_b_move)}</span>
+                              <div className={`text-sm font-medium ${getMoveColor(round.model_b_move)} mt-1 flex items-center justify-center gap-1`}>
+                                <span className="text-base">{getMoveIcon(round.model_b_move)}</span>
                                 {round.model_b_move}
                               </div>
                             </div>
-                            <div className="bg-gradient-to-br from-background to-secondary/20 rounded-xl p-6 border border-border/30 shadow-inner">
+                            <div className="bg-background/50 rounded-lg p-4 border border-border/20">
                               <p className="text-sm text-muted leading-relaxed">
                                 {round.model_b_reasoning || 'No reasoning provided'}
                               </p>
@@ -460,18 +432,18 @@ export function MatchDetails({ matchId }: MatchDetailsProps) {
                         </div>
 
                         {/* Round Outcome */}
-                        <div className="text-center p-6 bg-gradient-to-r from-accent/5 to-accent/10 rounded-xl border border-accent/20">
-                          <div className="text-sm text-muted/80 mb-2">Round Outcome</div>
-                          <p className="text-base font-medium text-foreground">
-                            <span className={`${getMoveColor(round.model_a_move)} flex items-center justify-center gap-2 inline-flex`}>
+                        <div className="text-center p-4 bg-accent/5 rounded-lg border border-accent/20">
+                          <div className="text-xs text-muted mb-2">Round Outcome</div>
+                          <p className="text-sm font-medium text-foreground">
+                            <span className={`${getMoveColor(round.model_a_move)} flex items-center justify-center gap-1 inline-flex`}>
                               {getMoveIcon(round.model_a_move)} {round.model_a_move}
                             </span>
-                            <span className="mx-3 text-accent/60">vs</span>
-                            <span className={`${getMoveColor(round.model_b_move)} flex items-center justify-center gap-2 inline-flex`}>
+                            <span className="mx-2 text-muted">vs</span>
+                            <span className={`${getMoveColor(round.model_b_move)} flex items-center justify-center gap-1 inline-flex`}>
                               {getMoveIcon(round.model_b_move)} {round.model_b_move}
                             </span>
                           </p>
-                          <div className="text-sm text-muted/70 mt-2">
+                          <div className="text-xs text-muted mt-1">
                             {formatModelName(match.model_a?.name || '')} +{round.model_a_score} • {formatModelName(match.model_b?.name || '')} +{round.model_b_score}
                           </div>
                         </div>

@@ -94,36 +94,36 @@ export function AllMatches() {
           </Link>
         </div>
       ) : (
-        <div className="space-y-4">
+        <div className="space-y-1">
           {matches.map((match) => (
             <Link 
               key={match.id} 
               href={`/matches/${match.id}`}
-              className="card-hover bg-secondary p-6 rounded-lg block"
+              className="block py-3 px-4 hover:bg-secondary/30 border-b border-border/30 hover:border-accent/30 transition-all duration-200 group"
             >
               <div className="grid md:grid-cols-4 gap-4 items-center">
                 {/* Date */}
-                <div className="text-sm text-muted">
+                <div className="text-xs text-muted/70">
                   {formatDate(match.created_at)}
                 </div>
 
                 {/* Models */}
                 <div className="md:col-span-2">
-                  <div className="flex items-center justify-center space-x-4">
+                  <div className="flex items-center justify-center space-x-6">
                     <div className="text-center">
-                      <div className={`font-semibold ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
+                      <div className={`text-sm font-medium ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
                         {formatModelName(match.model_a?.name || '')}
                       </div>
-                      <div className="text-lg font-bold">{match.model_a_final_score}</div>
+                      <div className="text-base font-semibold">{match.model_a_final_score}</div>
                     </div>
                     
-                    <div className="text-accent font-bold">VS</div>
+                    <div className="text-muted/50 text-sm font-medium">vs</div>
                     
                     <div className="text-center">
-                      <div className={`font-semibold ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>
+                      <div className={`text-sm font-medium ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>
                         {formatModelName(match.model_b?.name || '')}
                       </div>
-                      <div className="text-lg font-bold">{match.model_b_final_score}</div>
+                      <div className="text-base font-semibold">{match.model_b_final_score}</div>
                     </div>
                   </div>
                 </div>
@@ -131,14 +131,14 @@ export function AllMatches() {
                 {/* Winner */}
                 <div className="text-right">
                   {match.winner_id ? (
-                    <div className="text-success font-semibold">
+                    <div className="text-success text-sm font-medium">
                       {match.winner_id === match.model_a_id 
                         ? formatModelName(match.model_a?.name || '') 
                         : formatModelName(match.model_b?.name || '')
-                      } Won
+                      } won
                     </div>
                   ) : (
-                    <div className="text-warning font-semibold">Tie</div>
+                    <div className="text-warning text-sm font-medium">Tie</div>
                   )}
                 </div>
               </div>

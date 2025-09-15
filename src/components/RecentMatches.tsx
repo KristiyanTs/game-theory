@@ -100,7 +100,6 @@ export function RecentMatches() {
               <div className="flex items-center space-x-6 flex-1 justify-center">
                 <div className="text-center">
                   <div className={`font-mono font-semibold flex items-center justify-center gap-1 ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
-                    {match.winner_id === match.model_a_id && <span>🏆</span>}
                     <ModelLogoIcon modelName={match.model_a?.name || ''} size={16} />
                     {formatModelName(match.model_a?.name || '')}
                   </div>
@@ -113,7 +112,6 @@ export function RecentMatches() {
 
                 <div className="text-center">
                   <div className={`font-mono font-semibold flex items-center justify-center gap-1 ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>
-                    {match.winner_id === match.model_b_id && <span>🏆</span>}
                     <ModelLogoIcon modelName={match.model_b?.name || ''} size={16} />
                     {formatModelName(match.model_b?.name || '')}
                   </div>

@@ -157,7 +157,6 @@ export function BattlesList() {
                     <div className="flex items-center space-x-8 flex-1 justify-center">
                       <div className="text-center">
                         <div className={`font-mono font-bold flex items-center justify-center gap-2 text-base ${match.winner_id === match.model_a_id ? 'text-success' : 'text-foreground'}`}>
-                          {match.winner_id === match.model_a_id && <span className="text-lg">🏆</span>}
                           <ModelLogoIcon modelName={match.model_a?.name || ''} size={16} />
                           {formatModelName(match.model_a?.name || '')}
                         </div>
@@ -170,7 +169,6 @@ export function BattlesList() {
 
                       <div className="text-center">
                         <div className={`font-mono font-bold flex items-center justify-center gap-2 text-base ${match.winner_id === match.model_b_id ? 'text-success' : 'text-foreground'}`}>
-                          {match.winner_id === match.model_b_id && <span className="text-lg">🏆</span>}
                           <ModelLogoIcon modelName={match.model_b?.name || ''} size={16} />
                           {formatModelName(match.model_b?.name || '')}
                         </div>
