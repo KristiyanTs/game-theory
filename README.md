@@ -2,7 +2,7 @@
 title: Prisoner's Dilemma Benchmark
 emoji: ⚔️
 colorFrom: red
-colorTo: black
+colorTo: gray
 sdk: docker
 sdk_version: "4.0.0"
 app_file: app.py
