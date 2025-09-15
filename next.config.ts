@@ -9,6 +9,15 @@ const nextConfig: NextConfig = {
       bodySizeLimit: '2mb',
     }
   },
+  // Disable Turbopack for production builds in Docker
+  turbo: {
+    rules: {
+      '*.css': {
+        loaders: ['postcss-loader'],
+        as: '*.css',
+      },
+    },
+  },
   // Enable TypeScript strict mode
   typescript: {
     ignoreBuildErrors: false,
