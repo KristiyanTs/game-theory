@@ -124,7 +124,7 @@ export class OpenRouterClient {
             // For rate limiting, add extra delay even on first attempt
             if (attempt === 0) {
               console.log(`🚦 ${modelName} rate limited on first attempt, adding extra delay...`)
-              await new Promise(resolve => setTimeout(resolve, 5000)) // 15s immediate delay
+              await new Promise(resolve => setTimeout(resolve, 2000)) // 15s immediate delay
             }
             throw new Error(`${modelName} rate limit exceeded (${response.status}). Implementing delay before retry.`)
           }
@@ -179,8 +179,8 @@ export class OpenRouterClient {
         }
         
         // Use intelligent delay based on account limits
-        const baseDelay = 5000
-        const delay = baseDelay + (Math.random() * 5000) // Add jitter
+        const baseDelay = 2000
+        const delay = baseDelay + (Math.random() * 2000) // Add jitter
         console.log(`⏳ Rate limited - retrying ${modelName} in ${Math.round(delay/1000)}s... (attempt ${attempt + 1}/${retries})`)
         await new Promise(resolve => setTimeout(resolve, delay))
       }

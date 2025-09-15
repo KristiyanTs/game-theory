@@ -19,6 +19,7 @@ if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
 
 import { supabaseAdmin } from '../src/lib/supabase'
 import { GameEngine } from '../src/lib/game-engine'
+import { recalculateModelStatistics, verifyStatistics } from './recalculate-stats'
 
 // Tournament configuration
 const TOURNAMENT_MODELS = [
@@ -181,12 +182,7 @@ class TournamentRunner {
           const matchId = await this.gameEngine.runMatch(pair.modelA, pair.modelB)
           console.log(`✅ Game completed successfully! Match ID: ${matchId}`)
           
-          // Add delay between games to be nice to the APIs
-          if (gameNumber < totalGamesNeeded) {
-            const delayMinutes = 2
-            console.log(`⏳ Cooling down for ${delayMinutes} minutes before next game...`)
-            await new Promise(resolve => setTimeout(resolve, delayMinutes * 60 * 1000))
-          }
+          // No delay between games - run at full speed
 
         } catch (error) {
           console.error(`❌ Game ${gameNumber} failed:`, error)
@@ -235,15 +231,25 @@ async function main() {
     case 'resume':
       await runner.resumeTournament()
       break
+
+    case 'verify-stats':
+      await verifyStatistics()
+      break
+      
+    case 'recalculate-stats':
+      await recalculateModelStatistics()
+      break
       
     default:
       console.log('🎯 Game Theory Tournament Runner')
       console.log('')
       console.log('Usage:')
-      console.log('  npx tsx scripts/tournament.ts check     - Check current progress')
-      console.log('  npx tsx scripts/tournament.ts dry-run  - Show what games would be run')
-      console.log('  npx tsx scripts/tournament.ts run      - Run the tournament')
-      console.log('  npx tsx scripts/tournament.ts resume   - Resume tournament from current state')
+      console.log('  npx tsx scripts/tournament.ts check            - Check current progress')
+      console.log('  npx tsx scripts/tournament.ts dry-run         - Show what games would be run')
+      console.log('  npx tsx scripts/tournament.ts run             - Run the tournament')
+      console.log('  npx tsx scripts/tournament.ts resume          - Resume tournament from current state')
+      console.log('  npx tsx scripts/tournament.ts verify-stats    - Check if model statistics are consistent')
+      console.log('  npx tsx scripts/tournament.ts recalculate-stats - Recalculate all model statistics from matches')
       console.log('')
       console.log('Models in tournament:')
       TOURNAMENT_MODELS.forEach(model => console.log(`  - ${model}`))

@@ -113,12 +113,7 @@ export class GameEngine {
           
           console.log(`📈 Running totals: ${modelAName}: ${gameState.modelAScore}, ${modelBName}: ${gameState.modelBScore}`)
           
-          // Add intelligent delay between rounds based on account limits
-          if (round < this.TOTAL_ROUNDS) {
-            const roundDelay = 5000
-            console.log(`⏳ Smart cooling down ${roundDelay/1000}s before next round...`)
-            await new Promise(resolve => setTimeout(resolve, roundDelay))
-          }
+          // No delay between rounds - run at full speed
           
         } catch (roundError) {
           console.error(`💥 Round ${round} failed:`, roundError)
@@ -189,8 +184,6 @@ export class GameEngine {
         return ''
       })
       console.log(`🎯 ${modelAName} response:`, responseAValue)
-
-      await new Promise(resolve => setTimeout(resolve, 5000))
 
       console.log(`🎯 Calling ${modelBName} second...`)
       const responseBValue = await this.openRouter.callModel(modelBName, promptB).catch(error => {

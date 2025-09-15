@@ -9,11 +9,13 @@
     "lint": "eslint",
     "setup": "node setup-env.js",
     "type-check": "tsc --noEmit",
-    "tournament": "npx tsx scripts/tournament.ts",
-    "tournament:check": "npx tsx scripts/tournament.ts check",
-    "tournament:dry-run": "npx tsx scripts/tournament.ts dry-run",
-    "tournament:run": "npx tsx scripts/tournament.ts run",
-    "tournament:resume": "npx tsx scripts/tournament.ts resume"
+    "tournament": "export $(cat .env.local | grep -v '^#' | xargs) && npx tsx scripts/tournament.ts",
+    "tournament:check": "export $(cat .env.local | grep -v '^#' | xargs) && npx tsx scripts/tournament.ts check",
+    "tournament:dry-run": "export $(cat .env.local | grep -v '^#' | xargs) && npx tsx scripts/tournament.ts dry-run",
+    "tournament:run": "export $(cat .env.local | grep -v '^#' | xargs) && npx tsx scripts/tournament.ts run",
+    "tournament:resume": "export $(cat .env.local | grep -v '^#' | xargs) && npx tsx scripts/tournament.ts resume",
+    "tournament:verify-stats": "export $(cat .env.local | grep -v '^#' | xargs) && npx tsx scripts/tournament.ts verify-stats",
+    "tournament:recalculate-stats": "export $(cat .env.local | grep -v '^#' | xargs) && npx tsx scripts/tournament.ts recalculate-stats"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.57.0",

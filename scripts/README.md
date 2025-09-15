@@ -44,6 +44,37 @@ npm run tournament:resume
 ```
 Same as `run` - the script automatically detects which games are missing and only runs those.
 
+### Verify Model Statistics
+```bash
+npm run tournament:verify-stats
+```
+Checks if the stored model statistics (wins, losses, total_score) are consistent with the actual completed matches in the database.
+
+### Recalculate Model Statistics
+```bash
+npm run tournament:recalculate-stats
+```
+Recalculates and fixes all model statistics from scratch based on completed matches. Use this if you've deleted some matches and re-run them, as the old statistics may be incorrect.
+
+## Model Statistics
+
+The tournament tracks two types of statistics:
+
+### Basic Stats (Stored in Database)
+- **Wins/Losses**: Number of games won/lost
+- **Total Score**: Sum of all points scored across all games
+- **Average Score**: Total score divided by games played
+
+These are calculated incrementally as games complete, but can become incorrect if matches are deleted. Use the recalculation commands above to fix them.
+
+### Behavioral Metrics (Calculated Dynamically)
+- **Cooperation Rate**: Percentage of rounds where the model chose to cooperate
+- **Retaliation Rate**: Percentage of times the model defected after opponent defected
+- **Tyrant Index**: Percentage of total points that came from exploiting cooperative opponents
+- **Forgiveness Rate**: Percentage of times the model cooperated after mutual defection
+
+These are calculated live from the rounds data and are always accurate, even if matches are deleted.
+
 ## Features
 
 - **Smart Progress Tracking**: Only runs games that haven't been completed yet
