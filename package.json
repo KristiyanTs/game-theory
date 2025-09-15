@@ -18,6 +18,7 @@
     "tournament:recalculate-stats": "export $(cat .env.local | grep -v '^#' | xargs) && npx tsx scripts/tournament.ts recalculate-stats"
   },
   "dependencies": {
+    "@eslint/eslintrc": "^3",
     "@supabase/supabase-js": "^2.57.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
@@ -28,6 +29,8 @@
     "autoprefixer": "^10.4.20",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
+    "eslint": "^9",
+    "eslint-config-next": "15.5.2",
     "express": "^5.1.0",
     "next": "15.5.2",
     "postcss": "^8.4.49",
@@ -38,9 +41,6 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.2",
     "tsx": "^4.19.2"
   }
 }
