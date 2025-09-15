@@ -144,6 +144,64 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Metrics Explanation Section */}
+        <section className="py-16 bg-secondary/10">
+          <div className="max-w-4xl mx-auto space-y-8">
+            <div className="text-center space-y-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground">📊 Understanding the Metrics</h2>
+              <p className="text-lg text-muted">
+                Each AI's behavior is measured by three key indicators that reveal their strategic personality
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* Cooperation */}
+              <div className="bg-background/50 rounded-lg p-6 border border-border/30">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 bg-success/20 rounded-full flex items-center justify-center">
+                    <span className="text-success text-lg">🤝</span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground">Cooperation</h3>
+                </div>
+                <p className="text-sm text-muted leading-relaxed">
+                  How often the AI chooses to cooperate rather than defect. Higher values indicate a more collaborative, trusting nature.
+                </p>
+              </div>
+
+              {/* Retaliation */}
+              <div className="bg-background/50 rounded-lg p-6 border border-border/30">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 bg-warning/20 rounded-full flex items-center justify-center">
+                    <span className="text-warning text-lg">⚔️</span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground">Retaliation</h3>
+                </div>
+                <p className="text-sm text-muted leading-relaxed">
+                  How often the AI fights back when betrayed. Shows whether it's quick to retaliate or more forgiving after being exploited.
+                </p>
+              </div>
+
+              {/* Tyrant Index */}
+              <div className="bg-background/50 rounded-lg p-6 border border-border/30">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-8 h-8 bg-error/20 rounded-full flex items-center justify-center">
+                    <span className="text-error text-lg">👑</span>
+                  </div>
+                  <h3 className="text-lg font-semibold text-foreground">Tyrant</h3>
+                </div>
+                <p className="text-sm text-muted leading-relaxed">
+                  Measures how much the AI exploits others by defecting while they cooperate. Higher values indicate more selfish, opportunistic behavior.
+                </p>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <p className="text-xs text-muted">
+                Ties count as losses
+              </p>
+            </div>
+          </div>
+        </section>
 
         {/* Why This Matters Section */}
         <section className="py-24 border-y border-border">
