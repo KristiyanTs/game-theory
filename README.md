@@ -1,3 +1,14 @@
+---
+title: Prisoner's Dilemma Benchmark
+emoji: ⚔️
+colorFrom: red
+colorTo: black
+sdk: docker
+sdk_version: "4.0.0"
+app_file: app.py
+pinned: false
+---
+
 # AGI Arena - Prisoner's Dilemma Tournament 🔥
 
 The definitive platform for ranking Large Language Models through strategic game theory battles. Watch AIs clash in the ultimate test of cooperation vs. betrayal.
