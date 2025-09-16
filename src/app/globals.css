@@ -77,6 +77,12 @@ body {
   @apply bg-secondary backdrop-blur-sm border border-border rounded-xl p-6 transition-all duration-300 hover:border-accent hover:shadow-lg;
 }
 
+@media (max-width: 640px) {
+  .modern-card {
+    @apply p-4 rounded-lg;
+  }
+}
+
 .card-hover {
   transition: all 0.3s ease;
   border: 1px solid var(--border);
@@ -99,34 +105,40 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-size: clamp(1.75rem, 5vw, 4rem);
   font-weight: 800;
   letter-spacing: -0.03em;
+  line-height: 1.1;
 }
 
 h2 {
-  font-size: clamp(2rem, 4vw, 3rem);
+  font-size: clamp(1.5rem, 4vw, 3rem);
   font-weight: 700;
+  line-height: 1.15;
 }
 
 h3 {
-  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-size: clamp(1.25rem, 3vw, 2rem);
   font-weight: 600;
+  line-height: 1.2;
 }
 
 h4 {
-  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
   font-weight: 600;
+  line-height: 1.25;
 }
 
 h5 {
-  font-size: clamp(1.125rem, 2vw, 1.25rem);
+  font-size: clamp(1rem, 2vw, 1.25rem);
   font-weight: 600;
+  line-height: 1.3;
 }
 
 h6 {
-  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  font-size: clamp(0.875rem, 1.5vw, 1.125rem);
   font-weight: 600;
+  line-height: 1.35;
 }
 
 /* Body text and UI elements */
@@ -200,4 +212,73 @@ code, pre, .font-mono {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-hover);
+}
+
+/* Mobile Improvements */
+@media (max-width: 640px) {
+  /* Ensure touch targets are at least 44px */
+  button, a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improved text readability on small screens */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+  
+  /* Better tap highlighting */
+  * {
+    -webkit-tap-highlight-color: rgba(255, 68, 68, 0.2);
+  }
+  
+  /* Smoother scrolling on mobile */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Responsive container improvements */
+.container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
 }

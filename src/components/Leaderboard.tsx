@@ -118,7 +118,8 @@ export function Leaderboard() {
         
         return (
           <div key={model.id} className="modern-card hover:border-accent/50 transition-all duration-300 p-4">
-            <div className="flex items-center justify-between gap-6">
+            {/* Desktop Layout */}
+            <div className="hidden sm:flex items-center justify-between gap-6">
               {/* Left: Rank & Model Info */}
               <div className="flex items-center gap-4 min-w-0 flex-1">
                 <div className="flex items-center gap-2">
@@ -177,6 +178,56 @@ export function Leaderboard() {
                   <span className="text-muted">Tyrant Index</span>
                   <span className="font-bold text-error">{behavioralMetrics.tyrantIndex.toFixed(0)}%</span>
                 </div>
+              </div>
+            </div>
+
+            {/* Mobile Layout - Minimal */}
+            <div className="sm:hidden">
+              <div className="flex items-center justify-between">
+                {/* Left: Rank & Model */}
+                <div className="flex items-center gap-3 flex-1 min-w-0">
+                  <div className="flex items-center gap-1">
+                    <span className="text-base">
+                      {index === 0 && '👑'}
+                      {index === 1 && '🥈'}
+                      {index === 2 && '🥉'}
+                      {index > 2 && `#${index + 1}`}
+                    </span>
+                  </div>
+                  
+                  <div className="flex items-center gap-2 min-w-0 flex-1">
+                    <ModelLogoIcon modelName={model.name} size={16} />
+                    <h3 className="text-sm font-bold text-foreground truncate">
+                      {formatModelName(model.name)}
+                    </h3>
+                  </div>
+                </div>
+
+                {/* Right: Score & Key Metric */}
+                <div className="flex items-center gap-4">
+                  <div className="text-center">
+                    <div className="text-lg font-bold text-foreground">
+                      {(model.wins + model.losses) > 0 
+                        ? (model.total_score / (model.wins + model.losses)).toFixed(1)
+                        : '0.0'
+                      }
+                    </div>
+                    <div className="text-xs text-muted">Score</div>
+                  </div>
+                  
+                  <div className="text-center">
+                    <div className="text-sm font-bold text-success">
+                      {behavioralMetrics.cooperationRate.toFixed(0)}%
+                    </div>
+                    <div className="text-xs text-muted">Coop</div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Mobile Bottom Row - Games Count */}
+              <div className="mt-2 flex justify-between items-center text-xs text-muted">
+                <span>{model.wins + model.losses} games</span>
+                <span>{model.wins}W - {model.losses}L</span>
               </div>
             </div>
           </div>
